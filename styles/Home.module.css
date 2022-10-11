@@ -10,6 +10,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background-color: #0000;
 }
 
 .footer {
@@ -67,22 +69,24 @@
 
 .grid {
   display: flex;
-  align-items: center;
+   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   max-width: 800px;
+
 }
 
 .card {
   margin: 1rem;
   padding: 1.5rem;
-  text-align: left;
+  text-align: center;
   color: inherit;
   text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
+  border: 5px solid #eaeaea;
+  border-radius: 55px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+  width:90px;
+
 }
 
 .card:hover,
@@ -101,6 +105,7 @@
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.5;
+  
 }
 
 .logo {
@@ -126,4 +131,17 @@
   .logo img {
     filter: invert(1);
   }
+}
+
+
+.cardGetorpost {
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: inherit;
+  text-decoration: none;
+  border: 5px solid #eaeaea;
+  border-radius: 55px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  width:300px;
 }
