@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
@@ -17,45 +16,32 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Message in a Bottle!</a>
         </h1>
 
-        {/* <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p> */}
-
         <div className={styles.grid}>
-          <div >
-
+          <div>
             <h1>How are you today? </h1>
           </div>
 
           <div className={styles.grid}>
+            <a href="getorpost" className={styles.card}>
+              <p>🥲</p>
+            </a>
 
-            
-          <a href="getorpost" className={styles.card}>
-            <p>🥲</p>
-            
-          </a>
+            <a href="getorpost" className={styles.card}>
+              <p>🙁</p>
+            </a>
 
-          <a href="getorpost" className={styles.card}>
-            <p>🙁</p>
-          </a>
+            <a href="getorpost" className={styles.card}>
+              <p>😕</p>
+            </a>
 
-          <a href="getorpost" className={styles.card}>
-            <p>😕</p>
-          </a>
+            <a href="getorpost" className={styles.card}>
+              <p>😊</p>
+            </a>
 
-          <a href="getorpost" className={styles.card}>
-            <p>😊</p>
-          </a>
-
-          <a href="getorpost" className={styles.card}>
-            <p>😃</p>
-          </a>
-
-      
+            <a href="getorpost" className={styles.card}>
+              <p>😃</p>
+            </a>
           </div>
-
-
         </div>
       </main>
 
@@ -65,17 +51,17 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by QUACK TEAM  
-          <br/>
-            <img src='https://ih1.redbubble.net/image.12004786.2619/raf,750x1000,075,t,EDE272:cfc3479bac.u4.jpg' width={50} height={50}></img>
-          {/* <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-
-          </span> */}
+          Powered by QUACK TEAM
+          <br />
+          <img
+            src="https://ih1.redbubble.net/image.12004786.2619/raf,750x1000,075,t,EDE272:cfc3479bac.u4.jpg"
+            width={50}
+            height={50}
+          />
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
