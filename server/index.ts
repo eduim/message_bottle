@@ -39,8 +39,6 @@ void app.prepare().then(() => {
     ctx.response.message = 'hi';
   });
 
-  //router.get('/test', (ctx) => console.log('working user')); // Define routes
-
   server.use(router.routes()).use(router.allowedMethods());
 
   server.use(handleRequest);
