@@ -6,4 +6,5 @@ dist
 .env
 .env.test
 .env.development
-*.next/cache*
+*.next/cache
+*.conf
