@@ -6,9 +6,12 @@ import bodyParser from 'koa-body';
 import axios, { responseEncoding } from 'axios';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './lib/constants';
+import { PrismaClient } from '@prisma/client';
 import { createContext } from 'vm';
 import Application from 'koa';
 import koaBody from 'koa-body';
+
+const prisma = new PrismaClient();
 
 dotenv.config();
 
@@ -97,8 +100,22 @@ void app.prepare().then(() => {
     const { login: user, id: githubId } = await getGitHubData(accessToken);
     console.log(user, githubId);
     const secret = JWT_SECRET;
-    const token = jwt.sign({ foo: accessToken }, secret);
-    console.log(token);
+    const jwtToken = jwt.sign({ foo: accessToken }, secret);
+    console.log(jwtToken);
+    await prisma.user.upsert({
+      where: { id: githubId },
+      update: {
+        github_token: accessToken,
+        github_token_expires: expiresIn,
+      },
+      create: {
+        id: githubId,
+        github_token: accessToken,
+        github_token_expires: expiresIn,
+        github_user: user,
+        token: jwtToken,
+      },
+    });
   });
 
   // const authMiddleware: Koa.Middleware = async function (
