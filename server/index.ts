@@ -4,12 +4,10 @@ import next from 'next';
 import dotenv from 'dotenv';
 import MoodsController from '../controllers/moods.controller';
 import bodyParser from 'koa-bodyparser';
-import axios, { responseEncoding } from 'axios';
+import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './lib/constants';
 import { PrismaClient } from '@prisma/client';
-import { createContext } from 'vm';
-import Application from 'koa';
 
 const prisma = new PrismaClient();
 
@@ -68,12 +66,12 @@ void app.prepare().then(() => {
       {
         client_id: clientId,
         client_secret: clientSecret,
-        code,
+        code
       },
       {
         headers: {
-          Accept: 'application/json',
-        },
+          Accept: 'application/json'
+        }
       }
     );
     console.log(response.data);
@@ -83,8 +81,8 @@ void app.prepare().then(() => {
   const getGitHubData = async function (accessToken: string): Promise<any> {
     const response = await axios.get('https://api.github.com/user', {
       headers: {
-        Authorization: `bearer ${accessToken}`,
-      },
+        Authorization: `bearer ${accessToken}`
+      }
     });
     const data = response.data;
     console.log(data);
@@ -111,15 +109,15 @@ void app.prepare().then(() => {
       where: { id: githubId },
       update: {
         github_token: accessToken,
-        github_token_expires: expiresIn,
+        github_token_expires: expiresIn
       },
       create: {
         id: githubId,
         github_token: accessToken,
         github_token_expires: expiresIn,
         github_user: user,
-        token: jwtToken,
-      },
+        token: jwtToken
+      }
     });
   });
 

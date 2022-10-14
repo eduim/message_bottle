@@ -3,18 +3,18 @@ import prisma from '../lib/prisma';
 class Mood {
   constructor(
     public id: number,
-    public moodId: number,
+    public mood: number,
     public postDate?: string // public user?: Partial<User>
   ) {}
 
   static async create(
     // userId: number,
-    moodId: number,
+    mood: number,
     postDate: string
   ): Promise<Mood> {
     const { id } = await prisma.mood.create({
       data: {
-        moodId,
+        mood,
         postDate
 
         /// to add user info to the postmood
@@ -24,7 +24,7 @@ class Mood {
         // }
       }
     });
-    return new Mood(id, moodId, postDate);
+    return new Mood(id, mood, postDate);
   }
 }
 

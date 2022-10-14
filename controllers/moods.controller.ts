@@ -3,10 +3,17 @@ import Koa from 'koa';
 
 const MoodsController = {
   async createMood(ctx: Koa.Context, next: Koa.Next) {
-    if (ctx.request.body === undefined) {
+    if (
+      ctx.request.body === undefined ||
+      typeof ctx.request.body?.mood !== 'number'
+    ) {
+      ctx.status = 400;
+      ctx.body = {
+        error: 'Missing data in request.'
+      };
       return;
     }
-    const { moodId } = ctx.request.body;
+    const { mood } = ctx.request.body;
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -15,13 +22,9 @@ const MoodsController = {
     const postDate = `${dd}/${mm}/${yyyy}`;
     console.log(postDate);
 
-    if (typeof moodId !== 'number') {
-      return;
-    }
-
-    const mood = await Mood.create(moodId, postDate);
+    const record = await Mood.create(mood, postDate);
     ctx.statusCode = 201;
-    ctx.response.body = mood;
+    ctx.response.body = record;
   }
 };
 
