@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Mood" ALTER COLUMN "postDate" SET DATA TYPE TEXT;
