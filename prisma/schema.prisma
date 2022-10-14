@@ -13,12 +13,12 @@ datasource db {
 
 model User {
   id                   Int      @id 
-  github_token         String 
-  github_token_expires Int
-  github_user          String
+  githubToken         String 
+  githubTokenExpires Int
+  githubUser          String
   token                String?
-  int_start_date       Boolean  @default(false)
-  start_date           Int?
+  intStartDate       Boolean  @default(false)
+  startDate           Int?
 }
 
 // model Mood {
