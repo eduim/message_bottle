@@ -1,22 +1,14 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import next from 'next';
-import dotenv from 'dotenv';
 import bodyParser from 'koa-body';
 import UsersController from './controllers/Users.controller';
-
-dotenv.config();
+import authMiddleware from './middlewares/authentication';
 
 const port = 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev, port });
 const handle = app.getRequestHandler();
-const clientId: string | undefined = process.env.GITHUB_CLIENT_ID;
-const clientSecret: string | undefined = process.env.GITHUB_CLIENT_SECRET;
-
-if (clientId === undefined || clientSecret === undefined) {
-  throw new Error('missing client_id or client_secret');
-}
 
 const handleRequest = async (ctx: Koa.Context): Promise<void> => {
   await handle(ctx.req, ctx.res);
@@ -32,8 +24,7 @@ void app.prepare().then(() => {
 
   router.get('/login/github', UsersController.requestAuthorization);
   router.get('/login/github/callback', UsersController.getAuthorization);
-
-  // server.use(authMiddleware);
+  router.get('/me', authMiddleware, UsersController.authentication);
   server.use(router.routes()).use(router.allowedMethods());
 
   server.use(handleRequest);
