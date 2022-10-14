@@ -1,15 +1,14 @@
 import Koa from 'koa';
-import { GITHUB_CLIENT_ID, JWT_SECRET } from '../lib/constants';
-import { getGitHubData, getGithubToken } from '../lib/github';
+import { JWT_SECRET } from '../lib/constants';
+import { getGitHubData, getGithubToken, redirectUrl } from '../lib/github';
 import jwt from 'jsonwebtoken';
 import User from '../models/users';
 
-const clientId = GITHUB_CLIENT_ID;
-
-const GithubController = {
+const UsersController = {
   requestAuthorization: async (ctx: Koa.Context): Promise<void> => {
     console.log('redirect to github');
-    const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=http://localhost:3000/login/github/callback`;
+    const callbackUrl = 'http://localhost:3000/login/github/callback';
+    const url = redirectUrl(callbackUrl);
     ctx.redirect(url);
   },
   getAuthorization: async (ctx: Koa.Context): Promise<void> => {
@@ -35,4 +34,4 @@ const GithubController = {
   },
 };
 
-export default GithubController;
+export default UsersController;

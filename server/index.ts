@@ -3,7 +3,7 @@ import Router from 'koa-router';
 import next from 'next';
 import dotenv from 'dotenv';
 import bodyParser from 'koa-body';
-import GithubController from './controllers/github';
+import UsersController from './controllers/Users.controller';
 
 dotenv.config();
 
@@ -30,8 +30,8 @@ void app.prepare().then(() => {
 
   server.use(bodyParser());
 
-  router.get('/login/github', GithubController.requestAuthorization);
-  router.get('/login/github/callback', GithubController.getAuthorization);
+  router.get('/login/github', UsersController.requestAuthorization);
+  router.get('/login/github/callback', UsersController.getAuthorization);
 
   // server.use(authMiddleware);
   server.use(router.routes()).use(router.allowedMethods());

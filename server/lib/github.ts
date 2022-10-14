@@ -3,6 +3,9 @@ import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from './constants';
 
 const clientId = GITHUB_CLIENT_ID;
 const clientSecret = GITHUB_CLIENT_SECRET;
+const redirectUrl = function (callbackUrl: string): string {
+  return `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUrl}`;
+};
 
 const getGithubToken = async function (code: string): Promise<any> {
   const response = await axios.post(
@@ -33,4 +36,4 @@ const getGitHubData = async function (accessToken: string): Promise<any> {
   return data;
 };
 
-export { getGitHubData, getGithubToken };
+export { getGitHubData, getGithubToken, redirectUrl };
