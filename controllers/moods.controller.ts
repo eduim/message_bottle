@@ -14,15 +14,8 @@ const MoodsController = {
       return;
     }
     const { mood } = ctx.request.body;
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
 
-    const postDate = `${dd}/${mm}/${yyyy}`;
-    console.log(postDate);
-
-    const record = await Mood.create(mood, postDate);
+    const record = await Mood.create(mood);
     ctx.statusCode = 201;
     ctx.response.body = record;
   }
