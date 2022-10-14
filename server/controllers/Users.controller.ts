@@ -35,7 +35,13 @@ const UsersController = {
 
     // create the JWT
     const secret = JWT_SECRET;
-    const jwtToken = jwt.sign({ foo: accessToken }, secret);
+    const payload = {
+      id: githubId,
+      user,
+      accessToken,
+    };
+
+    const jwtToken = jwt.sign(payload, secret);
 
     const userDB = await User.login(
       githubId,
@@ -53,9 +59,17 @@ const UsersController = {
   },
 
   authentication: async (ctx: Koa.Context): Promise<void> => {
-    ctx.response.body = {
-      message: 'hi there',
-    };
+    try {
+      const tokenDecifer = ctx.user;
+      // hard coded team and currentDate until the feature is implemented
+      ctx.response.body = {
+        name: tokenDecifer.user,
+        team: 'arol',
+        currentDate: 24,
+      };
+    } catch (e) {
+      ctx.throw(500, 'error');
+    }
   },
 };
 

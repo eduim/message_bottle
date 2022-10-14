@@ -1,9 +1,10 @@
-import Koa from 'koa';
+import Koa, { Next } from 'koa';
 import Router from 'koa-router';
 import next from 'next';
 import bodyParser from 'koa-body';
 import UsersController from './controllers/Users.controller';
 import authMiddleware from './middlewares/authentication';
+import { Server } from 'http';
 
 const port = 3000;
 const dev = process.env.NODE_ENV !== 'production';
