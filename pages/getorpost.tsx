@@ -1,17 +1,16 @@
-import styles from '../styles/Home.module.css';
+import styles from '../styles/GetorPost.module.css';
 
 export default function getOrPost(): JSX.Element {
   return (
     <div className={styles.container}>
       <div className={styles.main}>
-        <h1> What do you want today? </h1>
-
+        <h1 className={styles.question}> What do you want to do today? </h1>
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.cardGetorpost}>
-            GET
+          <a href="get" className={styles.card}>
+            GET 👀
           </a>
-          <a href="https://nextjs.org/docs" className={styles.cardGetorpost}>
-            WRITE
+          <a href="post" className={styles.card}>
+            WRITE ✍🏼
           </a>
         </div>
       </div>
