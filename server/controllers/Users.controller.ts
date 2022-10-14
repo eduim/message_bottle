@@ -23,7 +23,7 @@ const UsersController = {
     console.log('callback from github with auth code/token');
     const code = ctx.query.code;
     if (typeof code !== 'string') {
-      throw new Error('User no autorithed');
+      ctx.throw(401, 'Unauthorized');
     }
 
     // get the access token from github
@@ -59,17 +59,13 @@ const UsersController = {
   },
 
   authentication: async (ctx: Koa.Context): Promise<void> => {
-    try {
-      const tokenDecifer = ctx.user;
-      // hard coded team and currentDate until the feature is implemented
-      ctx.response.body = {
-        name: tokenDecifer.user,
-        team: 'arol',
-        currentDate: 24,
-      };
-    } catch (e) {
-      ctx.throw(500, 'error');
-    }
+    const tokenDecifer = ctx.user;
+    // hard coded team and currentDate until the feature is implemented
+    ctx.response.body = {
+      name: tokenDecifer.user,
+      team: 'arol',
+      currentDate: 24,
+    };
   },
 };
 

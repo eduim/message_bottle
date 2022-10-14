@@ -12,9 +12,12 @@ const authMiddleware: Koa.Middleware = async function (
     return;
   }
   const secret = JWT_SECRET;
-
-  ctx.user = jwt.verify(token, secret);
-  await next();
+  try {
+    ctx.user = jwt.verify(token, secret);
+    await next();
+  } catch (e) {
+    ctx.throw(401, 'Unauthorized');
+  }
 };
 
 export default authMiddleware;
