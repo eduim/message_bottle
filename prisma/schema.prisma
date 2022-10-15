@@ -15,7 +15,6 @@ model User {
   github_token         String
   github_token_expires Int
   github_user          String
-  token                String?
   int_start_date       Boolean @default(false)
   start_date           Int?
   moods                Mood[]
