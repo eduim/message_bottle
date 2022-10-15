@@ -2,6 +2,26 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import MoodButton from '../components/MoodButton';
 import styles from '../styles/Home.module.css';
+import axios from 'axios';
+
+export const api = axios.create({
+  baseURL: 'http://localhost:3000',
+});
+
+const moodEmojis = [
+  { id: 1, pic: '😊' },
+  { id: 2, pic: '😄 ' },
+  { id: 3, pic: '😊' },
+  { id: 4, pic: '🥶' },
+  { id: 5, pic: '😮' },
+];
+
+async function toggleClick(id: number): Promise<void> {
+  console.log(id);
+  const res = await api.post('/moods', {
+    mood: id,
+  });
+}
 
 const Home: NextPage = () => {
   return (
@@ -23,12 +43,16 @@ const Home: NextPage = () => {
           </div>
 
           <div className={styles.moodGrid}>
-            <MoodButton href="getorpost">😢</MoodButton>
-            <MoodButton href="getorpost">😑</MoodButton>
-            <MoodButton href="getorpost">😎</MoodButton>
-            <MoodButton href="getorpost">😤</MoodButton>
-            <MoodButton href="getorpost">🥳</MoodButton>
-            <MoodButton href="getorpost">🥱</MoodButton>
+            {moodEmojis.map((emoji) => {
+              return (
+                <MoodButton
+                  key={emoji.id}
+                  onClick={async () => await toggleClick(emoji.id)}
+                >
+                  <p>{emoji.pic}</p>
+                </MoodButton>
+              );
+            })}
           </div>
         </div>
       </main>

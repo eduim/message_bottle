@@ -1,26 +1,13 @@
 import Koa from 'koa';
-import Router from 'koa-router';
 import next from 'next';
-import dotenv from 'dotenv';
-import { createContext } from 'vm';
+import bodyParser from 'koa-bodyparser';
+import authRouter from './authRouter';
+import router from './router';
 
-dotenv.config();
-
-const port = 8080;
+const port = 3000;
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
+const app = next({ dev, port });
 const handle = app.getRequestHandler();
-
-// const UsersController = {
-//   getOwnUser: async (ctx: Koa.Context): Promise<void> => {
-//     ctx.respond = false;
-//     ctx.res.statusCode = 200;
-//   },
-//   createUser: async (ctx: Koa.Context): Promise<void> => {
-//     ctx.respond = false;
-//     ctx.res.statusCode = 200;
-//   },
-// };
 
 const handleRequest = async (ctx: Koa.Context): Promise<void> => {
   await handle(ctx.req, ctx.res);
@@ -30,17 +17,10 @@ const handleRequest = async (ctx: Koa.Context): Promise<void> => {
 
 void app.prepare().then(() => {
   const server = new Koa();
-  const router = new Router();
-  // router.get('/users', UsersController.getOwnUser);
-  // router.post('/users', UsersController.createUser);
-
-  router.post('/test', async (ctx) => {
-    console.log('working');
-    ctx.response.message = 'hi';
-  });
+  server.use(bodyParser());
 
   server.use(router.routes()).use(router.allowedMethods());
-
+  server.use(authRouter.routes()).use(router.allowedMethods());
   server.use(handleRequest);
 
   server.listen(port, () => {
