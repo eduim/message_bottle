@@ -6,6 +6,6 @@ const router = new Router();
 
 router.get('/login/github', UsersController.requestAuthorization);
 router.get('/login/github/callback', UsersController.getAuthorization);
-router.get('/moods', MoodsController.createMood);
+router.post('/moods', MoodsController.createMood);
 
 export default router;

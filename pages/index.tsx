@@ -16,7 +16,7 @@ const moodEmojis = [
   { id: 5, pic: '😮' },
 ];
 
-async function toggleClick(id: number): Promise<void> {
+async function postMood(id: number): Promise<void> {
   console.log(id);
   await api.post('/moods', {
     mood: id,
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
                   key={emoji.id}
                   href="getorpost"
                   className={styles.card}
-                  onClick={async () => await toggleClick(emoji.id)}
+                  onClick={async () => await postMood(emoji.id)}
                 >
                   <p>{emoji.pic}</p>
                 </a>
