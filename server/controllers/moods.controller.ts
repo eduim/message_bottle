@@ -14,7 +14,7 @@ const MoodsController = {
       return;
     }
     const { mood } = ctx.request.body;
-
+    console.log(mood);
     const record = await Mood.create(mood);
     ctx.statusCode = 201;
     ctx.response.body = record;
