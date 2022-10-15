@@ -3,6 +3,7 @@ import next from 'next';
 import bodyParser from 'koa-bodyparser';
 import authRouter from './authRouter';
 import router from './router';
+import logger from 'koa-logger';
 
 const port = 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -17,6 +18,7 @@ const handleRequest = async (ctx: Koa.Context): Promise<void> => {
 
 void app.prepare().then(() => {
   const server = new Koa();
+  server.use(logger());
   server.use(bodyParser());
 
   server.use(router.routes()).use(router.allowedMethods());
