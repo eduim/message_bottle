@@ -17,24 +17,25 @@ class User {
     expiresIn: number,
     jwtToken: string
   ): Promise<User> {
-    const { intStartDate, startDate } = await prisma.user.upsert({
-      select: {
-        intStartDate: true,
-        startDate: true,
-      },
-      where: { id: githubId },
-      update: {
-        githubToken: accessToken,
-        githubTokenExpires: expiresIn,
-      },
-      create: {
-        id: githubId,
-        githubToken: accessToken,
-        githubTokenExpires: expiresIn,
-        githubUser: user,
-        token: jwtToken,
-      },
-    });
+    const { int_start_date: intStartDate, start_date: startDate } =
+      await prisma.user.upsert({
+        select: {
+          int_start_date: true,
+          start_date: true,
+        },
+        where: { id: githubId },
+        update: {
+          github_token: accessToken,
+          github_token_expires: expiresIn,
+        },
+        create: {
+          id: githubId,
+          github_token: accessToken,
+          github_token_expires: expiresIn,
+          github_user: user,
+          token: jwtToken,
+        },
+      });
     return new User(
       githubId,
       user,
