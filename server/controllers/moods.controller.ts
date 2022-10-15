@@ -9,7 +9,7 @@ const MoodsController = {
     ) {
       ctx.status = 400;
       ctx.body = {
-        error: 'Missing data in request.'
+        error: 'Missing data in request.',
       };
       return;
     }
