@@ -44,7 +44,7 @@ const UsersController = {
     const jwtToken = jwt.sign(payload, secret);
 
     const userDB = await User.login(githubId, accessToken, user, expiresIn);
-    console.log(userDB);
+    console.log(userDB, jwtToken);
     ctx.response.body = {
       token: jwtToken,
     };
