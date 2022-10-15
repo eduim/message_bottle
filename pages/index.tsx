@@ -18,7 +18,7 @@ const moodEmojis = [
 
 async function toggleClick(id: number): Promise<void> {
   console.log(id);
-  const res = await api.post('/moods', {
+  await api.post('/moods', {
     mood: id,
   });
 }
