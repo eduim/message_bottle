@@ -1,8 +1,9 @@
 import Koa from 'koa';
 import next from 'next';
-import bodyParser from 'koa-body';
+import bodyParser from 'koa-bodyparser';
 import authRouter from './authRouter';
 import router from './router';
+import MoodsController from '../controllers/moods.controller';
 
 const port = 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -17,8 +18,10 @@ const handleRequest = async (ctx: Koa.Context): Promise<void> => {
 
 void app.prepare().then(() => {
   const server = new Koa();
-
   server.use(bodyParser());
+  
+  router.post('/moods', MoodsController.createMood);
+
   server.use(router.routes()).use(router.allowedMethods());
   server.use(authRouter.routes()).use(router.allowedMethods());
   server.use(handleRequest);
