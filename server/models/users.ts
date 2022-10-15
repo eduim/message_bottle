@@ -3,9 +3,8 @@ import prisma from '../lib/prisma';
 class User {
   constructor(
     public id: number,
-    public user: string,
+    public username: string,
     public expiresIn: number,
-    public token?: string,
     public intStartDate?: boolean,
     public startDate?: number | null
   ) {}
@@ -14,8 +13,7 @@ class User {
     githubId: number,
     accessToken: string,
     user: string,
-    expiresIn: number,
-    jwtToken: string
+    expiresIn: number
   ): Promise<User> {
     const { int_start_date: intStartDate, start_date: startDate } =
       await prisma.user.upsert({
@@ -33,17 +31,9 @@ class User {
           github_token: accessToken,
           github_token_expires: expiresIn,
           github_user: user,
-          token: jwtToken,
         },
       });
-    return new User(
-      githubId,
-      user,
-      expiresIn,
-      jwtToken,
-      intStartDate,
-      startDate
-    );
+    return new User(githubId, user, expiresIn, intStartDate, startDate);
   }
 }
 

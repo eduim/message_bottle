@@ -43,17 +43,10 @@ const UsersController = {
 
     const jwtToken = jwt.sign(payload, secret);
 
-    const userDB = await User.login(
-      githubId,
-      accessToken,
-      user,
-      expiresIn,
-      jwtToken
-    );
+    const userDB = await User.login(githubId, accessToken, user, expiresIn);
     console.log(userDB);
     ctx.response.body = {
-      jwtToken,
-      error: 'all right',
+      token: jwtToken,
     };
     ctx.redirect('http://localhost:3000');
   },

@@ -5,7 +5,8 @@ import authMiddleware from './middlewares/authentication';
 
 const authRouter = new Router();
 
-authRouter.get('/me', authMiddleware, UsersController.authentication);
+authRouter.use(authMiddleware);
+authRouter.get('/me', UsersController.authentication);
 authRouter.post('/moods', MoodsController.createMood);
 
 export default authRouter;
