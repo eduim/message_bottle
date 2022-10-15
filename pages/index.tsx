@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import MoodButton from '../components/MoodButton';
 import styles from '../styles/Home.module.css';
 import axios from 'axios';
 
@@ -15,9 +16,9 @@ const moodEmojis = [
   { id: 5, pic: '😮' },
 ];
 
-async function toggleClick(id: number): Promise<void> {
+async function postMood(id: number): Promise<void> {
   console.log(id);
-  const res = await api.post('/moods', {
+  await api.post('/moods', {
     mood: id,
   });
 }
@@ -33,31 +34,32 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Message in a Bottle!</a>
+          Welcome to <a>Message in a Bottle!</a>
         </h1>
 
         <div className={styles.grid}>
-          <div>
+          <div className={styles.moodTitle}>
             <h1>How are you today? </h1>
           </div>
 
-          <div className={styles.grid}>
+          <div className={styles.moodGrid}>
             {moodEmojis.map((emoji) => {
               return (
-                <a
+                <MoodButton
                   key={emoji.id}
-                  href="getorpost"
-                  className={styles.card}
-                  onClick={async () => await toggleClick(emoji.id)}
+                  onClick={async () => await postMood(emoji.id)}
                 >
-                  <p>{emoji.pic}</p>
-                </a>
+                  {emoji.pic}
+                </MoodButton>
               );
             })}
           </div>
         </div>
       </main>
-
+      <div className={styles.brandBox}>
+        <img src="/assets/logo.png" width={75} height={75} />
+      </div>
+      {/* 
       <footer className={styles.footer}>
         <a
           href="https://www.arol.dev/"
@@ -67,12 +69,13 @@ const Home: NextPage = () => {
           Powered by QUACK TEAM
           <br />
           <img
-            src="https://ih1.redbubble.net/image.12004786.2619/raf,750x1000,075,t,EDE272:cfc3479bac.u4.jpg"
+            className={styles.logo}
+            src="https://www.enwallpaper.com/wp-content/uploads/b107616a275cad92b2281f134d78298a.jpg"
             width={50}
             height={50}
           />
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 };

@@ -13,14 +13,14 @@ class Mood {
   ): Promise<Mood> {
     const { id, postDate } = await prisma.mood.create({
       data: {
-        mood
+        mood,
 
         /// to add user info to the postmood
 
         // user: {
         //   connect: { id: userId }
         // }
-      }
+      },
     });
     return new Mood(id, mood, postDate);
   }
