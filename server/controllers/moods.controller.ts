@@ -9,16 +9,20 @@ const MoodsController = {
     ) {
       ctx.status = 400;
       ctx.body = {
-        error: 'Missing data in request.',
+        error: 'Missing data in request.'
       };
       return;
     }
+
     const { mood } = ctx.request.body;
-    console.log(mood);
-    const record = await Mood.create(mood);
+ 
+    const userId = ctx.user.id;
+
+    const record = await Mood.create(mood, userId);
+ 
     ctx.statusCode = 201;
     ctx.response.body = record;
-  },
+  }
 };
 
 export default MoodsController;

@@ -5,21 +5,22 @@ import styles from '../styles/Home.module.css';
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:3000'
 });
 
 const moodEmojis = [
+
   { id: 1, pic: '😎' },
   { id: 2, pic: '😞' },
   { id: 3, pic: '🤓' },
   { id: 4, pic: '😄' },
   { id: 5, pic: '😤' },
+ 
 ];
 
 async function postMood(id: number): Promise<void> {
-  console.log(id);
   await api.post('/moods', {
-    mood: id,
+    mood: id
   });
 }
 
