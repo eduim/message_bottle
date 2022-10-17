@@ -40,7 +40,7 @@ const Home: NextPage = () => {
           <div className={styles.moodTitle}>
             <h1>How are you today? </h1>
           </div>
-
+          <MoodButton href="google.com" onClick={(e) => e.preventDefault()} />
           <div className={styles.moodGrid}>
             {moodEmojis.map((emoji) => {
               return (
