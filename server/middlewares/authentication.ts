@@ -16,6 +16,7 @@ const authMiddleware: Koa.Middleware = async function (
     ctx.user = jwt.verify(token, secret);
     await next();
   } catch (e) {
+    console.error(e);
     ctx.throw(401, 'Unauthorized');
   }
 };

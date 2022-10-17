@@ -25,7 +25,7 @@ model Mood {
   mood     Int?
   postDate DateTime @default(now())
   user     User?    @relation(fields: [userId], references: [id])
-  userId   Int?     @unique
+  userId   Int?
   // message  Message?
 }
 
