@@ -6,6 +6,7 @@ import MoodButton from '../components/MoodButton';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export const api = axios.create({
   baseURL: 'http://localhost:3000',
@@ -68,6 +69,7 @@ const Home: NextPage = () => {
           <div className={styles.grid}>
             {moodEmojis.map((emoji) => {
               return (
+<<<<<<< HEAD
                 <a
                   key={emoji.id}
                   href="getorpost"
@@ -76,6 +78,11 @@ const Home: NextPage = () => {
                 >
                   <p>{emoji.pic}</p>
                 </a>
+=======
+                <MoodButton key={emoji.id} onClick={() => postMood(emoji.id)}>
+                  {emoji.pic}
+                </MoodButton>
+>>>>>>> c6e1f5f (fix: mood button implementation routing and post)
               );
             })}
           </div>
