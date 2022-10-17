@@ -3,7 +3,6 @@ import Koa from 'koa';
 
 const MoodsController = {
   async createMood(ctx: Koa.Context, next: Koa.Next) {
-    console.log('hello', ctx.user);
     if (
       ctx.request.body === undefined ||
       typeof ctx.request.body?.mood !== 'number'
