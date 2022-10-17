@@ -3,6 +3,7 @@ import Head from 'next/head';
 import MoodButton from '../components/MoodButton';
 import styles from '../styles/Home.module.css';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export const api = axios.create({
   baseURL: 'http://localhost:3000',
@@ -16,14 +17,15 @@ const moodEmojis = [
   { id: 5, pic: '😤' },
 ];
 
-async function postMood(id: number): Promise<void> {
-  console.log(id);
-  await api.post('/moods', {
-    mood: id,
-  });
-}
-
 const Home: NextPage = () => {
+  const router = useRouter();
+  async function postMood(id: number): Promise<void> {
+    console.log(id);
+    await api.post('/moods', {
+      mood: id,
+    });
+    void (await router.push('/getorpost'));
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -45,10 +47,7 @@ const Home: NextPage = () => {
           <div className={styles.moodGrid}>
             {moodEmojis.map((emoji) => {
               return (
-                <MoodButton
-                  key={emoji.id}
-                  onClick={async () => await postMood(emoji.id)}
-                >
+                <MoodButton key={emoji.id} onClick={() => postMood(emoji.id)}>
                   {emoji.pic}
                 </MoodButton>
               );
