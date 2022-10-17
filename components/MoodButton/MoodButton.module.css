@@ -1,9 +1,10 @@
 .card {
   margin: 1%;
-  padding: 2% 3%;
+  padding: 15px 25px;
   text-align: center;
   color: inherit;
   text-decoration: none;
+  border: none;
   border-radius: 3rem;
   background: #ffffff;
   box-shadow:  1.25rem 1.25rem 2.0625rem #ededed, -1.25rem -1.25rem 2.0625rem #ffffff;
