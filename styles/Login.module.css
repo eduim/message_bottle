@@ -1,0 +1,96 @@
+.main {
+  min-height: 90vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.title a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.title,
+.description {
+  text-align: center;
+}
+
+.moodTitle{
+  width: 100%;
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  width: 80%;
+  flex-direction: column;
+}
+
+.moodGrid{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  width: 80%;
+  flex-direction: row;
+}
+.brandBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .footer {
+  display: flex;
+  flex: 1;
+  padding: 1rem 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+} */
+
+
+/*smartphone(portrait)*/
+@media (min-width: 320px) and (max-width: 480px) {
+
+}
+
+/*tablet (landscape)*/
+@media(min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+}
+
+/*desktop*/
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+}
+
+/*big desktop*/
+@media (min-width: 1281px){
+
+}
