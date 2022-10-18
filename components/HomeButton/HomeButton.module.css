@@ -1,0 +1,17 @@
+.card{
+  border: none;
+  border-radius: 15px;
+  background-color: #85beff;
+  box-shadow: 6px 6px 12px #ffffff,
+              -6px -6px 12px #e4e4e4;
+  font-size: 0.9rem;
+  font-weight:600;
+  color: white;
+  margin-top: 100px;
+  width: 200px;
+  text-align: center;
+}
+
+.card:focus{
+  outline-color: white;
+}
