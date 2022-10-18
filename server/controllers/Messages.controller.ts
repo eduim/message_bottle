@@ -20,9 +20,8 @@ const MessagesController = {
     }
     const text = ctx.request.body.entrytext;
 
-    // const userId = ctx.user.id;
-    // user hardcoded until the authAPI is done
-    const userId = 22771927;
+    const userId = ctx.user.id;
+
     const currentMood = await Mood.checkTodayMood(userId);
     // const currentMood = [1];
 
