@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import User from './users';
+import User from './Users';
 
 class Mood {
   constructor(
@@ -16,9 +16,9 @@ class Mood {
 
         /// to add user info to the postmood
         user: {
-          connect: { id: userId }
-        }
-      }
+          connect: { id: userId },
+        },
+      },
     });
 
     return new Mood(id, mood, postDate);
@@ -32,21 +32,19 @@ class Mood {
       where: {
         AND: [
           {
- 
             userId,
- 
           },
           {
             postDate: {
-              gte: lastDay
-            }
-          }
-        ]
+              gte: lastDay,
+            },
+          },
+        ],
       },
       orderBy: {
-        postDate: 'desc'
+        postDate: 'desc',
       },
-      take: 1
+      take: 1,
     });
 
     return lastMood;
@@ -60,19 +58,19 @@ class Mood {
         where: {
           AND: [
             {
-              userId
+              userId,
             },
             {
               postDate: {
-                gte: lastDay
-              }
-            }
-          ]
+                gte: lastDay,
+              },
+            },
+          ],
         },
         orderBy: {
-          postDate: 'desc'
+          postDate: 'desc',
         },
-        take: 1
+        take: 1,
       });
 
       const currentDay = new Date(Date.now()).getDate();

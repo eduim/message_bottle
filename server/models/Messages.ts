@@ -1,3 +1,4 @@
+import { networkInterfaces } from 'os';
 import prisma from '../lib/prisma';
 
 class Messages {
@@ -32,7 +33,6 @@ class Messages {
   static async checkTodayMessage(userId: number): Promise<boolean> {
     const day = Date.now() - 24 * 60 * 60 * 1000;
     const lastDay = new Date(day).toISOString();
-
     try {
       const lastMessage = await prisma.message.findMany({
         where: {
