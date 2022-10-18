@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@contentful/f36-components": "^4.21.0",
     "@prisma/client": "^4.4.0",
     "@uiw/react-md-editor": "3.6.0",
     "axios": "^1.1.2",
@@ -59,6 +60,7 @@
       "prettier"
     ],
     "rules": {
+      "@typescript-eslint/promise-function-async": 0,
       "@typescript-eslint/no-misused-promises": 0,
       "@typescript-eslint/strict-boolean-expressions": 0,
       "quotes": [
