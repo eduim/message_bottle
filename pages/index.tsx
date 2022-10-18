@@ -32,6 +32,7 @@ const Home: NextPage = () => {
       await api.post('/moods', {
         mood: id,
       });
+      void (await router.push('/getorpost'));
     } catch (e) {
       void Notification.setPlacement('top');
       void Notification.error(
