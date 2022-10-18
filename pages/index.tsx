@@ -5,9 +5,8 @@ import { useEffect } from 'react';
 import MoodButton from '../components/MoodButton';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
- import { api } from './api/hello';
+import { api } from './api/hello';
 import { Notification } from '@contentful/f36-components';
- 
 
 const moodEmojis = [
   { id: 1, pic: '😎' },
@@ -18,12 +17,12 @@ const moodEmojis = [
 ];
 
 const Home: NextPage = () => {
- 
   async function postMood(id: number): Promise<void> {
     try {
       await api.post('/moods', {
         mood: id
       });
+      void (await router.push('/getorpost'));
     } catch (e) {
       void Notification.setPlacement('top');
       void Notification.error(
@@ -40,16 +39,7 @@ const Home: NextPage = () => {
       setToken(token);
     }
   }, [token]);
- 
-  const router = useRouter();
-  async function postMood(id: number): Promise<void> {
-    console.log(id);
-    await api.post('/moods', {
-      mood: id,
-    });
-    void (await router.push('/getorpost'));
-  }
- 
+
   return (
     <div className={styles.container}>
       <Head>
