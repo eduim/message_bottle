@@ -1,22 +1,33 @@
 import styles from '../styles/Post.module.css';
 import PostButton from '../components/PostButton';
-import { api } from '.';
+import { Notification } from '@contentful/f36-components';
+
 import React, { useState } from 'react';
+import { api } from './api/hello';
 
 export default function post(): JSX.Element {
-  async function postMessage(text: string): Promise<void> {
-    await api.post('/messages', {
-      entrytext: text,
-    });
+  async function postMessage(text: string): Promise<any> {
+    await api
+      .post('/messages', {
+        entrytext: text,
+      })
+      .then((Response) => {
+        Notification.error(Response.data);
+      });
   }
 
   const [message, setMessage] = useState<string>('');
+  // const [messageAlert, setmessageAlert] = useState<string>('')
+  // const [showModal, setShowModal]
 
   async function handleMessage(
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event?.preventDefault();
-    await postMessage(message);
+    const response = await postMessage(message);
+    setTimeout(() => {
+      console.log(response);
+    }, 3000);
     setMessage('');
   }
 
