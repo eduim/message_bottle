@@ -1,25 +1,46 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import MoodButton from '../components/MoodButton';
-import styles from '../styles/Home.module.css';
-import axios from 'axios';
 import { useRouter } from 'next/router';
-
-export const api = axios.create({
-  baseURL: 'http://localhost:3000'
-});
+import { useEffect } from 'react';
+import MoodButton from '../components/MoodButton';
+import { useAuth } from '../lib/auth';
+import styles from '../styles/Home.module.css';
+ import { api } from './api/hello';
+import { Notification } from '@contentful/f36-components';
+ 
 
 const moodEmojis = [
-
   { id: 1, pic: '😎' },
   { id: 2, pic: '😞' },
   { id: 3, pic: '🤓' },
   { id: 4, pic: '😄' },
-  { id: 5, pic: '😤' },
- 
+  { id: 5, pic: '😤' }
 ];
 
 const Home: NextPage = () => {
+ 
+  async function postMood(id: number): Promise<void> {
+    try {
+      await api.post('/moods', {
+        mood: id
+      });
+    } catch (e) {
+      void Notification.setPlacement('top');
+      void Notification.error(
+        "You'are not logged in. Please click the logo below to log in."
+      );
+    }
+  }
+  const router = useRouter();
+  const { token } = router.query;
+
+  const { setToken } = useAuth();
+  useEffect(() => {
+    if (typeof token === 'string') {
+      setToken(token);
+    }
+  }, [token]);
+ 
   const router = useRouter();
   async function postMood(id: number): Promise<void> {
     console.log(id);
@@ -28,6 +49,7 @@ const Home: NextPage = () => {
     });
     void (await router.push('/getorpost'));
   }
+ 
   return (
     <div className={styles.container}>
       <Head>
@@ -57,7 +79,9 @@ const Home: NextPage = () => {
         </div>
       </main>
       <div className={styles.brandBox}>
-        <img src="/assets/logo.png" width={75} height={75} />
+        <a href="/login">
+          <img src="/assets/logo.png" width={75} height={75} />
+        </a>
       </div>
       {/* 
       <footer className={styles.footer}>

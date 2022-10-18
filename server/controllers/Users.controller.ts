@@ -38,17 +38,17 @@ const UsersController = {
     const payload = {
       id: githubId,
       user,
-      accessToken,
+      accessToken
     };
 
     const jwtToken = jwt.sign(payload, secret);
 
     const userDB = await User.login(githubId, accessToken, user, expiresIn);
     console.log(userDB, jwtToken);
-    ctx.response.body = {
-      token: jwtToken,
-    };
-    ctx.redirect('http://localhost:3000');
+    // ctx.response.body = {
+    //   token: jwtToken
+    // };
+    ctx.redirect(`http://localhost:3000?token=${jwtToken}`);
   },
 
   authentication: async (ctx: Koa.Context): Promise<void> => {
@@ -57,9 +57,9 @@ const UsersController = {
     ctx.response.body = {
       name: tokenDecifer.user,
       team: 'arol',
-      currentDate: 24,
+      currentDate: 24
     };
-  },
+  }
 };
 
 export default UsersController;
