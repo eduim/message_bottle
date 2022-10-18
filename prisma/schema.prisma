@@ -18,6 +18,7 @@ model User {
   int_start_date       Boolean @default(false)
   start_date           Int?
   moods                Mood[]
+  messages             Message[]
 }
 
 model Mood {
@@ -29,11 +30,10 @@ model Mood {
   // message  Message?
 }
 
-// model Message {
-//   id Int @id @default(autoincrement())
-//   post_date Int 
-//   text String
-//   picture String
-//   video String
-
-// }
+model Message {
+  id        Int      @id @default(autoincrement())
+  postDate  DateTime @default(now())
+  entrytext String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
