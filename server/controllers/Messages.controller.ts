@@ -23,19 +23,23 @@ const MessagesController = {
     // const userId = ctx.user.id;
     // user hardcoded until the authAPI is done
     const userId = 22771927;
-    const publishMessage = await Messages.checkTodayMessage(userId);
     const currentMood = await Mood.checkTodayMood(userId);
-    if (currentMood === null) {
-      ctx.throw('Missing mood');
+    // const currentMood = [1];
+    console.log('currentMood', currentMood);
+    if (currentMood.length === 0) {
+      console.log('here');
+      ctx.response.body = 'You need to introduce your mood';
+      ctx.response.status = 200;
     }
+    const publishMessage = await Messages.checkTodayMessage(userId);
 
     if (publishMessage) {
       ctx.response.body = 'Already posted message today';
-      ctx.statusCode = 400;
+      ctx.response.status = 200;
     } else {
-      const message = await Messages.create(text, userId, currentMood);
+      const message = await Messages.create(text, userId, currentMood[0]);
       ctx.response.body = message;
-      ctx.statusCode = 201;
+      ctx.response.status = 201;
     }
   },
 };

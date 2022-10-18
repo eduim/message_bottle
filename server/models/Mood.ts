@@ -24,9 +24,10 @@ class Mood {
     return new Mood(id, mood, postDate);
   }
 
-  static async checkTodayMood(userId: number): Promise<number | null> {
+  static async checkTodayMood(userId: number): Promise<any> {
     const day = Date.now() - 24 * 60 * 60 * 1000;
     const lastDay = new Date(day).toISOString();
+
     const lastMood = await prisma.mood.findMany({
       where: {
         AND: [
@@ -46,7 +47,7 @@ class Mood {
       take: 1,
     });
 
-    return lastMood[0].mood;
+    return lastMood;
   }
 }
 
