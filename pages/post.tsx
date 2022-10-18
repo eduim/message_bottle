@@ -1,7 +1,7 @@
 import styles from '../styles/Post.module.css';
 import PostButton from '../components/PostButton';
 import { api } from '.';
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 
 export default function post(): JSX.Element {
   async function postMessage(text: string): Promise<void> {
@@ -16,8 +16,8 @@ export default function post(): JSX.Element {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event?.preventDefault();
-    const response = await postMessage(message);
-    console.log(response);
+    await postMessage(message);
+    setMessage('');
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
