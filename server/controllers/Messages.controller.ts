@@ -25,15 +25,12 @@ const MessagesController = {
     const userId = 22771927;
     const currentMood = await Mood.checkTodayMood(userId);
     // const currentMood = [1];
-    console.log('currentMood', currentMood);
+
+    const publishMessage = await Messages.checkTodayMessage(userId);
     if (currentMood.length === 0) {
-      console.log('here');
       ctx.response.body = 'You need to introduce your mood';
       ctx.response.status = 200;
-    }
-    const publishMessage = await Messages.checkTodayMessage(userId);
-
-    if (publishMessage) {
+    } else if (publishMessage) {
       ctx.response.body = 'Already posted message today';
       ctx.response.status = 200;
     } else {

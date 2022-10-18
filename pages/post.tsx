@@ -1,18 +1,19 @@
 import styles from '../styles/Post.module.css';
 import PostButton from '../components/PostButton';
 import { Notification } from '@contentful/f36-components';
+import HomeButton from '../components/HomeButton';
 
 import React, { useState } from 'react';
 import { api } from './api/hello';
 
 export default function post(): JSX.Element {
-  async function postMessage(text: string): Promise<any> {
+  async function postMessage(text: string): Promise<void> {
     await api
       .post('/messages', {
         entrytext: text,
       })
       .then((Response) => {
-        Notification.error(Response.data);
+        void Notification.error(Response.data);
       });
   }
 
@@ -24,10 +25,7 @@ export default function post(): JSX.Element {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event?.preventDefault();
-    const response = await postMessage(message);
-    setTimeout(() => {
-      console.log(response);
-    }, 3000);
+    await postMessage(message);
     setMessage('');
   }
 
@@ -51,6 +49,7 @@ export default function post(): JSX.Element {
               />
               <PostButton> ADD</PostButton>
             </form>
+            <HomeButton href="/">Home</HomeButton>
           </div>
         </div>
       </div>
