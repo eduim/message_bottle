@@ -38,7 +38,7 @@ const UsersController = {
     const payload = {
       id: githubId,
       user,
-      accessToken,
+      accessToken
     };
 
     const jwtToken = jwt.sign(payload, secret);
@@ -57,9 +57,9 @@ const UsersController = {
     ctx.response.body = {
       name: tokenDecifer.user,
       team: 'arol',
-      currentDate: 24,
+      currentDate: 24
     };
-  },
+  }
 };
 
 export default UsersController;
