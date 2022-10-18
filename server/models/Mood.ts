@@ -16,9 +16,9 @@ class Mood {
 
         /// to add user info to the postmood
         user: {
-          connect: { id: userId }
-        }
-      }
+          connect: { id: userId },
+        },
+      },
     });
 
     return new Mood(id, mood, postDate);
