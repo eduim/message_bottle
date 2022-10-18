@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@contentful/f36-components": "^4.21.0",
     "@prisma/client": "^4.4.0",
     "@uiw/react-md-editor": "3.6.0",
     "axios": "^1.1.2",

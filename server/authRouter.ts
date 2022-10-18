@@ -3,6 +3,7 @@ import MessagesController from './controllers/Messages.controller';
 import MoodsController from './controllers/moods.controller';
 import UsersController from './controllers/Users.controller';
 import authMiddleware from './middlewares/authentication';
+import User from './models/users';
 
 const authRouter = new Router();
 
