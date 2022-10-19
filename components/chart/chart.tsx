@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import { api } from '../../pages';
+import { api } from '../../lib/api';
 import {
   Chart,
   ChartData,
   ChartOptions,
-  // ChartDataset,
-  // ChartType,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
 } from 'chart.js';
+import { useAuth } from '../../lib/auth';
+
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
 interface LineProps {
@@ -27,39 +27,24 @@ const ChartMoods = () => {
   });
   const [userMood, setUserMood] = useState([]);
   const [averageMood, setAverageMood] = useState([]);
+  useAuth();
 
   const chart = () => {
     const uMood: number[] = [];
     const aMood: number[] = [];
     api
       .get('/moods')
-      .then((res) => {
-        console.log(res);
-
-        /* TO CHANGE TO API */
-        // const res = {
-        //   data: {
-        //     data: [
-        //       {
-        //         user_mood: 5,
-        //         average_mood: 2,
-        //       },
-        //       {
-        //         user_mood: 1,
-        //         average_mood: 5,
-        //       },
-        //     ],
-        //   },
-        // };
-        // for (const dataObj of res.data.data) {
-        //   uMood.push(dataObj.user_mood);
-        //   aMood.push(dataObj.average_mood);
-        // }
+      .then((response) => {
+        console.log(response.data);
+        for (const dataObj of response.data.data) {
+          uMood.push(dataObj.user_mood);
+          aMood.push(dataObj.average_mood);
+        }
         setChartData({
           labels: aMood,
           datasets: [
             {
-              label: 'level of thiccness',
+              label: 'mood range',
               data: uMood,
               backgroundColor: ['rgba(75, 192, 192, 0.6)'],
               borderWidth: 4,
@@ -78,8 +63,9 @@ const ChartMoods = () => {
   useEffect(() => {
     api
       .get('/moods')
-      .then((response) => {
-        console.log(response.data);
+      .then((result) => {
+        console.log(result.data);
+        setUserMood(result.data);
       })
       .catch((err) => {
         console.log(err);

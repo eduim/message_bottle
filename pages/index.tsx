@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import MoodButton from '../components/MoodButton';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
-import { api, APIRequestError } from '../lib/hello';
+import { api, APIRequestError } from '../lib/api';
 import { contextOptions, Notification } from '@contentful/f36-components';
 import axios, { AxiosError } from 'axios';
 

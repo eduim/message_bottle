@@ -4,7 +4,7 @@ import { Notification } from '@contentful/f36-components';
 import HomeButton from '../components/HomeButton';
 
 import React, { useState } from 'react';
-import { api } from './api/hello';
+import { api } from '../lib/api';
 
 export default function post(): JSX.Element {
   async function postMessage(text: string): Promise<void> {

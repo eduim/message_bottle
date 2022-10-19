@@ -1,9 +1,11 @@
 import styles from '../styles/Get.module.css';
-import { api } from '.';
 import { useState, useEffect } from 'react';
 import ChartMood from '../components/chart/chart';
+import { api } from '../lib/api';
+import { useAuth } from '../lib/auth';
 
 function GetMessage(): JSX.Element {
+  useAuth();
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
