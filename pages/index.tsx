@@ -31,7 +31,7 @@ const Home: NextPage = () => {
   async function postMood(id: number): Promise<void> {
     try {
       await api.post('/moods', {
-        mood: id
+        mood: id,
       });
       void (await router.push('/getorpost'));
     } catch (e: any) {
