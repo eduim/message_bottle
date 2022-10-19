@@ -19,17 +19,16 @@ const MessagesController = {
       ctx.throw('message empty');
     }
     const text = ctx.request.body.entrytext;
-
     const userId = ctx.user.id;
-
     const todayMood = await Mood.checkTodayMood(userId);
+    console.log('todayMood', todayMood);
     const currentMood = await Mood.getCurrentMood(userId);
-
+    console.log('currentMood', currentMood);
     const publishMessage = await Messages.checkTodayMessage(userId);
-    if (todayMood) {
+    if (!todayMood) {
       ctx.response.body = 'You need to introduce your mood';
       ctx.response.status = 200;
-    } else if (publishMessage) {
+    } else if (!publishMessage) {
       ctx.response.body = 'Already posted message today';
       ctx.response.status = 200;
     } else {

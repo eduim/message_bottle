@@ -1,12 +1,24 @@
 import styles from '../styles/Post.module.css';
 import PostButton from '../components/PostButton';
+import { useRouter } from 'next/router';
 import { Notification } from '@contentful/f36-components';
 import HomeButton from '../components/HomeButton';
 
-import React, { useState } from 'react';
-import { api } from './api/hello';
+import React, { useState, useEffect } from 'react';
+import { api } from '../lib/hello';
+import { useAuth } from '../lib/auth';
 
 export default function post(): JSX.Element {
+  const router = useRouter();
+  const { token } = router.query;
+
+  const { setToken } = useAuth();
+  useEffect(() => {
+    if (typeof token === 'string') {
+      setToken(token);
+    }
+  }, [token]);
+
   async function postMessage(text: string): Promise<void> {
     await api
       .post('/messages', {
@@ -18,8 +30,6 @@ export default function post(): JSX.Element {
   }
 
   const [message, setMessage] = useState<string>('');
-  // const [messageAlert, setmessageAlert] = useState<string>('')
-  // const [showModal, setShowModal]
 
   async function handleMessage(
     event: React.FormEvent<HTMLFormElement>
