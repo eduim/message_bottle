@@ -4,13 +4,13 @@ import { Notification } from '@contentful/f36-components';
 import HomeButton from '../components/HomeButton';
 
 import React, { useState } from 'react';
-import { api } from './api/hello';
+import { api } from '../lib/hello';
 
 export default function post(): JSX.Element {
   async function postMessage(text: string): Promise<void> {
     await api
       .post('/messages', {
-        entrytext: text,
+        entrytext: text
       })
       .then((Response) => {
         void Notification.error(Response.data);
