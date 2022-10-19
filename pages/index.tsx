@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 import MoodButton from '../components/MoodButton';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
-import { api } from './api/hello';
-import { Notification } from '@contentful/f36-components';
+import { api, APIRequestError } from '../lib/hello';
+import { contextOptions, Notification } from '@contentful/f36-components';
+import axios, { AxiosError } from 'axios';
 
 const moodEmojis = [
   { id: 1, pic: '😎' },
@@ -17,19 +18,6 @@ const moodEmojis = [
 ];
 
 const Home: NextPage = () => {
-  async function postMood(id: number): Promise<void> {
-    try {
-      await api.post('/moods', {
-        mood: id
-      });
-      void (await router.push('/getorpost'));
-    } catch (e) {
-      void Notification.setPlacement('top');
-      void Notification.error(
-        "You'are not logged in. Please click the logo below to log in."
-      );
-    }
-  }
   const router = useRouter();
   const { token } = router.query;
 
@@ -39,6 +27,30 @@ const Home: NextPage = () => {
       setToken(token);
     }
   }, [token]);
+
+  async function postMood(id: number): Promise<void> {
+    try {
+      await api.post('/moods', {
+        mood: id
+      });
+      void (await router.push('/getorpost'));
+    } catch (e: any) {
+      // console.log('response', Response.data);
+      // if (Response.body === 'You already posted your mood today.') {
+      //   void Notification.setPlacement('top');
+      //   void Notification.error('You already posted your mood today.');
+      // }
+      void Notification.setPlacement('top');
+
+      if (axios.isAxiosError(e)) {
+        void Notification.error(e.response?.data);
+      } else {
+        void Notification.error(
+          'Unknown error, please try again or contact and administrator.'
+        );
+      }
+    }
+  }
 
   return (
     <div className={styles.container}>

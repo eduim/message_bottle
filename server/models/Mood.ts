@@ -23,6 +23,35 @@ class Mood {
 
     return new Mood(id, mood, postDate);
   }
+
+  static async checkTodayMood(userId: number): Promise<boolean> {
+    const day = Date.now() - 24 * 60 * 60 * 1000;
+    const lastDay = new Date(day).toISOString();
+
+    const lastMood = await prisma.mood.findMany({
+      where: {
+        AND: [
+          {
+            userId
+          },
+          {
+            postDate: {
+              gte: lastDay
+            }
+          }
+        ]
+      },
+      orderBy: {
+        postDate: 'desc'
+      },
+      take: 1
+    });
+
+    const currentDay = new Date(Date.now()).getDate();
+
+    console.log('lastmood', lastMood);
+    return lastMood[0].postDate.getDate() === currentDay;
+  }
 }
 
 export default Mood;
