@@ -22,11 +22,11 @@ const MessagesController = {
 
     const userId = ctx.user.id;
 
-    const currentMood = await Mood.checkTodayMood(userId);
-    // const currentMood = [1];
+    const todayMood = await Mood.checkTodayMood(userId);
+    const currentMood = await Mood.getCurrentMood(userId);
 
     const publishMessage = await Messages.checkTodayMessage(userId);
-    if (currentMood.length === 0) {
+    if (todayMood) {
       ctx.response.body = 'You need to introduce your mood';
       ctx.response.status = 200;
     } else if (publishMessage) {
