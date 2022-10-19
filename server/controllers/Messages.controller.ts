@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import getRadomMessage from '../lib/randomMessage';
 import Messages from '../models/Messages';
 import Mood from '../models/Mood';
 
@@ -7,12 +8,18 @@ const MessagesController = {
     const userId = ctx.user.id;
     const messages = await Messages.getMessages();
     const currentMood = await Mood.getCurrentMood(userId);
-
-    ctx.response.body = {
-      userId,
-      currentMood: currentMood[0].mood,
-      message: messages,
-    };
+    const message = getRadomMessage(1, messages);
+    console.log('message', message);
+    if (message === undefined) {
+      ctx.response.status = 400;
+      ctx.response.body = 'There are no messages, post your own';
+    } else {
+      ctx.response.body = {
+        userId,
+        currentMood: currentMood[0].mood,
+        message,
+      };
+    }
   },
 
   async postMessage(ctx: Koa.Context, next: Koa.Next) {
@@ -36,7 +43,7 @@ const MessagesController = {
       ctx.response.status = 400;
       ctx.response.body = 'Already posted message today';
     } else {
-      const message = await Messages.create(text, userId, currentMood[0]);
+      const message = await Messages.create(text, userId, currentMood[0].id);
       ctx.response.body = message;
       ctx.response.status = 201;
     }
