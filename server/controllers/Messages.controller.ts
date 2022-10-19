@@ -8,16 +8,24 @@ const MessagesController = {
     const userId = ctx.user.id;
     const messages = await Messages.getMessages();
     const currentMood = await Mood.getCurrentMood(userId);
-    const message = getRadomMessage(1, messages);
-    console.log('message', message);
+
+    if (!currentMood) {
+      ctx.response.status = 400;
+      ctx.response.body =
+        'You have to submit a mood first in order to get a message.';
+      return;
+    }
+
+    const message = getRadomMessage(currentMood.mood, messages);
+
     if (message === undefined) {
       ctx.response.status = 400;
       ctx.response.body = 'There are no messages, post your own';
     } else {
       ctx.response.body = {
-        userId,
+        id: message.id,
         currentMood: currentMood.mood,
-        message,
+        entrytext: message.entrytext,
       };
     }
   },
