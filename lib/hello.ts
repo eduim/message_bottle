@@ -6,6 +6,10 @@ interface Data {
   name: string;
 }
 
+export interface APIRequestError {
+  message?: string;
+}
+
 function handler(req: NextApiRequest, res: NextApiResponse<Data>): void {
   res.status(200).json({ name: 'John Doe' });
 }

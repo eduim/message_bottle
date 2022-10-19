@@ -15,13 +15,17 @@ const MoodsController = {
     }
 
     const { mood } = ctx.request.body;
-
     const userId = ctx.user.id;
 
-    const record = await Mood.create(mood, userId);
-
-    ctx.statusCode = 201;
-    ctx.response.body = record;
+    const moodIsAlreadyPosted = Mood.checkTodayMood(userId);
+    if (await moodIsAlreadyPosted) {
+      ctx.response.status = 404;
+      ctx.response.body = 'You already posted your mood today.';
+    } else {
+      const record = await Mood.create(mood, userId);
+      ctx.statusCode = 201;
+      ctx.response.body = record;
+    }
   }
 };
 
