@@ -9,13 +9,14 @@ const MoodsController = {
     ) {
       ctx.status = 400;
       ctx.body = {
-        error: 'Missing data in request.'
+        error: 'Missing data in request.',
       };
       return;
     }
 
     const { mood } = ctx.request.body;
     const userId = ctx.user.id;
+
 
     const moodIsAlreadyPosted = Mood.checkTodayMood(userId);
     if (await moodIsAlreadyPosted) {

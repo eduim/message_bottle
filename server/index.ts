@@ -4,6 +4,7 @@ import bodyParser from 'koa-bodyparser';
 import authRouter from './authRouter';
 import router from './router';
 import logger from 'koa-logger';
+// import errorMiddleware from './middlewares/errorHandler';
 
 const port = 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -20,6 +21,7 @@ void app.prepare().then(() => {
   const server = new Koa();
   server.use(logger());
   server.use(bodyParser());
+  // server.use(errorMiddleware);
 
   server.use(router.routes()).use(router.allowedMethods());
   server.use(authRouter.routes()).use(router.allowedMethods());
