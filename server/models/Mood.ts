@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import User from './users';
+import User from './Users';
 
 class Mood {
   constructor(
@@ -16,70 +16,44 @@ class Mood {
 
         /// to add user info to the postmood
         user: {
-          connect: { id: userId }
-        }
-      }
+          connect: { id: userId },
+        },
+      },
     });
 
     return new Mood(id, mood, postDate);
   }
 
-  static async getCurrentMood(userId: number): Promise<any> {
+  static async getCurrentMood(userId: number): Promise<Mood | null> {
     const day = Date.now() - 24 * 60 * 60 * 1000;
     const lastDay = new Date(day).toISOString();
 
-    const lastMood = await prisma.mood.findMany({
+    const moods = await prisma.mood.findMany({
       where: {
         AND: [
           {
- 
             userId,
- 
           },
           {
             postDate: {
-              gte: lastDay
-            }
-          }
-        ]
+              gte: lastDay,
+            },
+          },
+        ],
       },
       orderBy: {
-        postDate: 'desc'
+        postDate: 'desc',
       },
-      take: 1
+      take: 1,
     });
 
-    return lastMood;
+    if (moods[0] === undefined) return null;
+
+    return moods[0];
   }
 
   static async checkTodayMood(userId: number): Promise<boolean> {
-    const day = Date.now() - 24 * 60 * 60 * 1000;
-    const lastDay = new Date(day).toISOString();
-    try {
-      const lastMood = await prisma.mood.findMany({
-        where: {
-          AND: [
-            {
-              userId
-            },
-            {
-              postDate: {
-                gte: lastDay
-              }
-            }
-          ]
-        },
-        orderBy: {
-          postDate: 'desc'
-        },
-        take: 1
-      });
-
-      const currentDay = new Date(Date.now()).getDate();
-      return lastMood[0].postDate.getDate() === currentDay;
-    } catch {
-      return false;
-    }
+    return (await this.getCurrentMood(userId)) !== null;
   }
 
   static async getMood(): Promise<any> {

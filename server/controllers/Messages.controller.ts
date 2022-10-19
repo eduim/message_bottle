@@ -8,16 +8,24 @@ const MessagesController = {
     const userId = ctx.user.id;
     const messages = await Messages.getMessages();
     const currentMood = await Mood.getCurrentMood(userId);
-    const message = getRadomMessage(1, messages);
-    console.log('message', message);
+
+    if (!currentMood) {
+      ctx.response.status = 400;
+      ctx.response.body =
+        'You have to submit a mood first in order to get a message.';
+      return;
+    }
+
+    const message = getRadomMessage(currentMood.mood, messages);
+
     if (message === undefined) {
       ctx.response.status = 400;
       ctx.response.body = 'There are no messages, post your own';
     } else {
       ctx.response.body = {
-        userId,
-        currentMood: currentMood[0].mood,
-        message,
+        id: message.id,
+        currentMood: currentMood.mood,
+        entrytext: message.entrytext,
       };
     }
   },
@@ -31,11 +39,10 @@ const MessagesController = {
     }
     const text = ctx.request.body.entrytext;
     const userId = ctx.user.id;
-    const todayMood = await Mood.checkTodayMood(userId);
     const currentMood = await Mood.getCurrentMood(userId);
     const publishMessage = await Messages.checkTodayMessage(userId);
 
-    if (!todayMood) {
+    if (!currentMood) {
       ctx.response.status = 400;
       ctx.response.body = 'You need to introduce your mood';
     } else if (publishMessage) {
@@ -43,7 +50,7 @@ const MessagesController = {
       ctx.response.status = 400;
       ctx.response.body = 'Already posted message today';
     } else {
-      const message = await Messages.create(text, userId, currentMood[0].id);
+      const message = await Messages.create(text, userId, currentMood.mood);
       ctx.response.body = message;
       ctx.response.status = 201;
     }

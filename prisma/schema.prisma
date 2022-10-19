@@ -27,15 +27,13 @@ model Mood {
   postDate  DateTime @default(now())
   user      User    @relation(fields: [userId], references: [id])
   userId    Int
-  messages  Message?
 }
 
 model Message {
   id        Int      @id @default(autoincrement())
   postDate  DateTime @default(now())
   entrytext String
-  mood      Mood     @relation(fields: [moodId], references: [id])
-  moodId    Int      @unique
+  mood      Int
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
 }
