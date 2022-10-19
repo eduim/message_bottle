@@ -18,7 +18,6 @@ export function useAuth(): UseAuthReturnValue {
     const mytoken = localStorage.getItem('token');
     if (mytoken) {
       setToken(mytoken);
-      console.log('setToken');
     }
   });
 
