@@ -11,8 +11,9 @@
   "dependencies": {
     "@contentful/f36-components": "^4.21.0",
     "@prisma/client": "^4.4.0",
-    "@uiw/react-md-editor": "3.6.0",
+    "@types/react-chartjs-2": "^2.5.7",
     "axios": "^1.1.2",
+    "chart.js": "^3.9.1",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
@@ -23,8 +24,8 @@
     "next": "^12.3.1",
     "next-remove-imports": "^1.0.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-editor-js": "^2.1.0"
+    "react-chartjs-2": "^4.3.1",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.9",
