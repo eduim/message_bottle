@@ -15,7 +15,7 @@ function handler(req: NextApiRequest, res: NextApiResponse<Data>): void {
 }
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'http://localhost:3000',
 });
 
 export const setToken = function (token: string): void {

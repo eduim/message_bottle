@@ -1,0 +1,40 @@
+import Mood from '../models/Mood';
+import Koa from 'koa';
+
+const MoodsController = {
+  async createMood(ctx: Koa.Context, next: Koa.Next) {
+    if (
+      ctx.request.body === undefined ||
+      typeof ctx.request.body?.mood !== 'number'
+    ) {
+      ctx.status = 400;
+      ctx.body = {
+        error: 'Missing data in request.',
+      };
+      return;
+    }
+
+    const { mood } = ctx.request.body;
+    const userId = ctx.user.id;
+
+    const moodIsAlreadyPosted = Mood.checkTodayMood(userId);
+    if (await moodIsAlreadyPosted) {
+      ctx.response.status = 404;
+      ctx.response.body =
+        'You already posted your mood today. Press Home to go to messages.';
+    } else {
+      const record = await Mood.create(mood, userId);
+      ctx.statusCode = 201;
+      ctx.response.body = record;
+    }
+  },
+
+  async getMoods(ctx: Koa.Context, next: Koa.Next) {
+    const record = await Mood.getMood();
+    console.log('here', record);
+    ctx.statusCode = 200;
+    ctx.response.body = record;
+  },
+};
+
+export default MoodsController;
