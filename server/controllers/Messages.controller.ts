@@ -5,9 +5,13 @@ import Mood from '../models/Mood';
 const MessagesController = {
   async getMessage(ctx: Koa.Context) {
     const userId = ctx.user.id;
+    const messages = await Messages.getMessages();
+    const currentMood = await Mood.getCurrentMood(userId);
+
     ctx.response.body = {
       userId,
-      message: 'its working',
+      currentMood: currentMood[0].mood,
+      message: messages,
     };
   },
 
@@ -21,16 +25,16 @@ const MessagesController = {
     const text = ctx.request.body.entrytext;
     const userId = ctx.user.id;
     const todayMood = await Mood.checkTodayMood(userId);
-    console.log('todayMood', todayMood);
     const currentMood = await Mood.getCurrentMood(userId);
-    console.log('currentMood', currentMood);
     const publishMessage = await Messages.checkTodayMessage(userId);
+
     if (!todayMood) {
+      ctx.response.status = 400;
       ctx.response.body = 'You need to introduce your mood';
-      ctx.response.status = 200;
-    } else if (!publishMessage) {
+    } else if (publishMessage) {
+      console.log('here');
+      ctx.response.status = 400;
       ctx.response.body = 'Already posted message today';
-      ctx.response.status = 200;
     } else {
       const message = await Messages.create(text, userId, currentMood[0]);
       ctx.response.body = message;
