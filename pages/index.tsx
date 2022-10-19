@@ -8,13 +8,15 @@ import styles from '../styles/Home.module.css';
 import { api } from '../lib/hello';
 import { Notification } from '@contentful/f36-components';
 import axios from 'axios';
+import HomeButton from '../components/HomeButton';
+ 
 
 const moodEmojis = [
   { id: 1, pic: '😎' },
   { id: 2, pic: '😞' },
   { id: 3, pic: '🤓' },
   { id: 4, pic: '😄' },
-  { id: 5, pic: '😤' },
+  { id: 5, pic: '😤' }
 ];
 
 const Home: NextPage = () => {
@@ -35,11 +37,6 @@ const Home: NextPage = () => {
       });
       void (await router.push('/getorpost'));
     } catch (e: any) {
-      // console.log('response', Response.data);
-      // if (Response.body === 'You already posted your mood today.') {
-      //   void Notification.setPlacement('top');
-      //   void Notification.error('You already posted your mood today.');
-      // }
       void Notification.setPlacement('top');
 
       if (axios.isAxiosError(e)) {
@@ -77,6 +74,7 @@ const Home: NextPage = () => {
             })}
           </div>
         </div>
+        <HomeButton href="/getorpost">Home</HomeButton>
       </main>
       <div className={styles.brandBox}>
         <img src="/assets/logo.png" width={75} height={75} />
