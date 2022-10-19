@@ -16,7 +16,7 @@ const MessagesController = {
     } else {
       ctx.response.body = {
         userId,
-        currentMood: currentMood[0].mood,
+        currentMood: currentMood.mood,
         message,
       };
     }
@@ -31,11 +31,10 @@ const MessagesController = {
     }
     const text = ctx.request.body.entrytext;
     const userId = ctx.user.id;
-    const todayMood = await Mood.checkTodayMood(userId);
     const currentMood = await Mood.getCurrentMood(userId);
     const publishMessage = await Messages.checkTodayMessage(userId);
 
-    if (!todayMood) {
+    if (!currentMood) {
       ctx.response.status = 400;
       ctx.response.body = 'You need to introduce your mood';
     } else if (publishMessage) {
@@ -43,7 +42,7 @@ const MessagesController = {
       ctx.response.status = 400;
       ctx.response.body = 'Already posted message today';
     } else {
-      const message = await Messages.create(text, userId, currentMood?.mood);
+      const message = await Messages.create(text, userId, currentMood.mood);
       ctx.response.body = message;
       ctx.response.status = 201;
     }
