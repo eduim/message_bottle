@@ -63,7 +63,44 @@ Get the chart data on agregated moods, and your own moods
 
 #### Response
 
-> Todo: define the response with chart data
+```
+{
+  "data": [
+    {
+      user_mood: 3,
+      average_mood: 2,
+    },
+    {
+      user_mood: 1,
+      average_mood: 3,
+    },
+    {
+      user_mood: 2,
+      average_mood: 3,
+    },
+    {
+      user_mood: 5,
+      average_mood: 4,
+    },
+    {
+      user_mood: 1,
+      average_mood: 2,
+    },
+    {
+      user_mood: 5,
+      average_mood: 3,
+    },
+    {
+      user_mood: 5,
+      average_mood: 2,
+    },
+    {
+      user_mood: 1,
+      average_mood: 5,
+    }
+  ]
+}
+```
 
 ### POST /messages
 

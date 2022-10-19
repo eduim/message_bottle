@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import User from './Users';
+import User from './users';
 
 class Mood {
   constructor(
@@ -16,9 +16,9 @@ class Mood {
 
         /// to add user info to the postmood
         user: {
-          connect: { id: userId },
-        },
-      },
+          connect: { id: userId }
+        }
+      }
     });
 
     return new Mood(id, mood, postDate);
@@ -32,20 +32,21 @@ class Mood {
       where: {
         AND: [
           {
-
+ 
             userId,
+ 
           },
           {
             postDate: {
-              gte: lastDay,
-            },
-          },
-        ],
+              gte: lastDay
+            }
+          }
+        ]
       },
       orderBy: {
-        postDate: 'desc',
+        postDate: 'desc'
       },
-      take: 1,
+      take: 1
     });
 
     return lastMood;
@@ -59,28 +60,39 @@ class Mood {
         where: {
           AND: [
             {
-              userId,
+              userId
             },
             {
               postDate: {
-                gte: lastDay,
-              },
-            },
-          ],
+                gte: lastDay
+              }
+            }
+          ]
         },
         orderBy: {
-          postDate: 'desc',
+          postDate: 'desc'
         },
-        take: 1,
+        take: 1
       });
 
       const currentDay = new Date(Date.now()).getDate();
-
-      console.log('lastmood', lastMood);
       return lastMood[0].postDate.getDate() === currentDay;
     } catch {
       return false;
     }
+  }
+
+  static async getMood(): Promise<any> {
+    const result = await prisma.$queryRaw`
+    SELECT
+      date_trunc('day', "public"."Mood"."postDate") as postDate,
+      ROUND(AVG("public"."Mood"."mood"),2) as mood
+    FROM
+      "public"."Mood"
+    GROUP BY 1
+    `;
+
+    return result;
   }
 }
 

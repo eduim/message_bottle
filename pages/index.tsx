@@ -5,9 +5,10 @@ import { useEffect } from 'react';
 import MoodButton from '../components/MoodButton';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
-import { api } from '../lib/hello';
+import { api } from '../lib/api';
 import { Notification } from '@contentful/f36-components';
 import axios from 'axios';
+import HomeButton from '../components/HomeButton';
 
 const moodEmojis = [
   { id: 1, pic: '😎' },
@@ -35,11 +36,6 @@ const Home: NextPage = () => {
       });
       void (await router.push('/getorpost'));
     } catch (e: any) {
-      // console.log('response', Response.data);
-      // if (Response.body === 'You already posted your mood today.') {
-      //   void Notification.setPlacement('top');
-      //   void Notification.error('You already posted your mood today.');
-      // }
       void Notification.setPlacement('top');
 
       if (axios.isAxiosError(e)) {
@@ -67,7 +63,6 @@ const Home: NextPage = () => {
           <div className={styles.moodTitle}>
             <h1>How are you today? </h1>
           </div>
-          <MoodButton href="google.com" onClick={(e) => e.preventDefault()} />
           <div className={styles.moodGrid}>
             {moodEmojis.map((emoji) => {
               return (
@@ -78,11 +73,24 @@ const Home: NextPage = () => {
             })}
           </div>
         </div>
+        <HomeButton href="/getorpost">Home</HomeButton>
       </main>
       <div className={styles.brandBox}>
-        <a href="/login">
-          <img src="/assets/logo.png" width={75} height={75} />
-        </a>
+        <img src="/assets/logo.png" width={75} height={75} />
+        <svg className={styles.wave} viewBox="0 0 12960 1120">
+          <path d="M9720,320C8100,320,8100,0,6480,0S4860,320,3240,320,1620,0,0,0V1120H12960V0C11340,0,11340,320,9720,320Z">
+            <animate
+              dur="5s"
+              repeatCount="indefinite"
+              attributeName="d"
+              values="
+              M9720,320C8100,320,8100,0,6480,0S4860,320,3240,320,1620,0,0,0V1120H12960V0C11340,0,11340,320,9720,320Z;
+              M9720,0C8100,0,8100,319,6480,319S4860,0,3240,0,1620,320,0,320v800H12960V320C11340,320,11340,0,9720,0Z;
+              M9720,320C8100,320,8100,0,6480,0S4860,320,3240,320,1620,0,0,0V1120H12960V0C11340,0,11340,320,9720,320Z
+            "
+            />
+          </path>
+        </svg>
       </div>
       {/* 
       <footer className={styles.footer}>

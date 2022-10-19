@@ -8,7 +8,10 @@ const authRouter = new Router();
 
 authRouter.use(authMiddleware);
 authRouter.get('/me', UsersController.authentication);
+
 authRouter.post('/moods', MoodsController.createMood);
+authRouter.get('/moods', MoodsController.getMoods);
+
 authRouter.get('/messages', MessagesController.getMessage);
 authRouter.post('/messages', MessagesController.postMessage);
 
