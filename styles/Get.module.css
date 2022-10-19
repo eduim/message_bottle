@@ -11,17 +11,30 @@
   flex-direction: column;
   justify-content:flex-start;
   align-items: center;
-  gap: 3%;
+  gap: 2%;
   background-color: #0000;
 }
+
+.graph {
+  width:80vw;
+  height: 20%;
+  border: 10px;
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(212, 212, 212);
+  box-shadow: 10px 7px 20px rgba(22, 12, 60, 0.2);
+ }
 .title{
-  padding-top: 2%;
+  padding-top: 1%;
   font-size: 2rem;
 }
 
-.card {
-  width:70%;
-  height: 70%;
+.box {
+  width:60%;
+  height: 50%;
   border: 10px;
   border-color: black;
   border-radius: 2em;
@@ -76,20 +89,6 @@
   font-weight: bold;
   transition: 0.4s ease-in;
   width: 2rem;
- }
- 
-
- .card:hover {
-  transform: translateY(5%);
- }
- 
- .card:hover:before {
-  opacity: 1;
- }
- 
- .card:hover .cardInfo {
-  opacity: 1;
-  transform: translateY(0);
  }
 
 .text{
