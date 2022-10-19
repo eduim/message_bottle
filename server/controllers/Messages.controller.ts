@@ -11,7 +11,7 @@ const MessagesController = {
     ctx.response.body = {
       userId,
       currentMood: currentMood[0].mood,
-      message: messages,
+      message: messages
     };
   },
 
@@ -40,7 +40,7 @@ const MessagesController = {
       ctx.response.body = message;
       ctx.response.status = 201;
     }
-  },
+  }
 };
 
 export default MessagesController;

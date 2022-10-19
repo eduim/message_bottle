@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import MoodButton from '../components/MoodButton';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
@@ -9,16 +9,19 @@ import { api } from '../lib/api';
 import { Notification } from '@contentful/f36-components';
 import axios from 'axios';
 import HomeButton from '../components/HomeButton';
+import { redirect } from 'next/dist/server/api-utils';
 
 const moodEmojis = [
   { id: 1, pic: '😎' },
   { id: 2, pic: '😞' },
   { id: 3, pic: '🤓' },
   { id: 4, pic: '😄' },
-  { id: 5, pic: '😤' },
+  { id: 5, pic: '😤' }
 ];
 
 const Home: NextPage = () => {
+  const [moodPosted, setMoodPosted] = useState(false);
+
   const router = useRouter();
   const { token } = router.query;
 
@@ -29,10 +32,15 @@ const Home: NextPage = () => {
     }
   }, [token]);
 
+  // useEffect(() => {
+  //   api.get('/me')
+
+  // });
+
   async function postMood(id: number): Promise<void> {
     try {
       await api.post('/moods', {
-        mood: id,
+        mood: id
       });
       void (await router.push('/getorpost'));
     } catch (e: any) {
@@ -73,7 +81,7 @@ const Home: NextPage = () => {
             })}
           </div>
         </div>
-        <HomeButton href="/getorpost">Home</HomeButton>
+        <HomeButton href="/getorpost">Go to Messages</HomeButton>
       </main>
       <div className={styles.brandBox}>
         <img src="/assets/logo.png" width={75} height={75} />

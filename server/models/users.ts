@@ -19,19 +19,19 @@ class User {
       await prisma.user.upsert({
         select: {
           int_start_date: true,
-          start_date: true,
+          start_date: true
         },
         where: { id: githubId },
         update: {
           github_token: accessToken,
-          github_token_expires: expiresIn,
+          github_token_expires: expiresIn
         },
         create: {
           id: githubId,
           github_token: accessToken,
           github_token_expires: expiresIn,
-          github_user: user,
-        },
+          github_user: user
+        }
       });
     return new User(githubId, user, expiresIn, intStartDate, startDate);
   }

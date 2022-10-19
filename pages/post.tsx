@@ -14,7 +14,7 @@ export default function post(): JSX.Element {
   async function postMessage(text: string): Promise<void> {
     try {
       await api.post('/messages', {
-        entrytext: text,
+        entrytext: text
       });
     } catch (e: any) {
       void Notification.setPlacement('top');

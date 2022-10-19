@@ -21,7 +21,7 @@ const MoodsController = {
     if (await moodIsAlreadyPosted) {
       ctx.response.status = 404;
       ctx.response.body =
-        'You already posted your mood today. Press Home to go to messages.';
+        'You already posted your mood today. You can now go to messages.';
     } else {
       const record = await Mood.create(mood, userId);
       ctx.statusCode = 201;
@@ -34,7 +34,7 @@ const MoodsController = {
     console.log('here', record);
     ctx.statusCode = 200;
     ctx.response.body = record;
-  },
+  }
 };
 
 export default MoodsController;
