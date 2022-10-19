@@ -32,7 +32,6 @@ const MessagesController = {
     const text = ctx.request.body.entrytext;
     const userId = ctx.user.id;
     const todayMood = await Mood.checkTodayMood(userId);
-    console.log('todayMood', todayMood);
     const currentMood = await Mood.getCurrentMood(userId);
     const publishMessage = await Messages.checkTodayMessage(userId);
 

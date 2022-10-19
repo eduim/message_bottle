@@ -1,6 +1,5 @@
 import styles from '../styles/Post.module.css';
 import PostButton from '../components/PostButton';
-import { useRouter } from 'next/router';
 import { Notification } from '@contentful/f36-components';
 import HomeButton from '../components/HomeButton';
 import axios from 'axios';
