@@ -57,11 +57,6 @@ const Home: NextPage = () => {
       });
       void (await router.push('/getorpost'));
     } catch (e: any) {
-      // console.log('response', Response.data);
-      // if (Response.body === 'You already posted your mood today.') {
-      //   void Notification.setPlacement('top');
-      //   void Notification.error('You already posted your mood today.');
-      // }
       void Notification.setPlacement('top');
 
       if (axios.isAxiosError(e)) {
@@ -105,6 +100,7 @@ const Home: NextPage = () => {
             })}
           </div>
         </div>
+        <HomeButton href="/getorpost">Home</HomeButton>
       </main>
       <div className={styles.brandBox}>
         <a href="/login">

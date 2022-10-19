@@ -74,8 +74,6 @@ class Mood {
       });
 
       const currentDay = new Date(Date.now()).getDate();
-
-      console.log('lastmood', lastMood);
       return lastMood[0].postDate.getDate() === currentDay;
     } catch {
       return false;
