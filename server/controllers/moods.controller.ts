@@ -17,7 +17,6 @@ const MoodsController = {
     const { mood } = ctx.request.body;
     const userId = ctx.user.id;
 
-
     const moodIsAlreadyPosted = Mood.checkTodayMood(userId);
     if (await moodIsAlreadyPosted) {
       ctx.response.status = 404;
@@ -27,7 +26,14 @@ const MoodsController = {
       ctx.statusCode = 201;
       ctx.response.body = record;
     }
-  }
+  },
+
+  async getMoods(ctx: Koa.Context, next: Koa.Next) {
+    const record = await Mood.getMood();
+    console.log('here', record);
+    ctx.statusCode = 200;
+    ctx.response.body = record;
+  },
 };
 
 export default MoodsController;

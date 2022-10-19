@@ -31,7 +31,7 @@ const Home: NextPage = () => {
   async function postMood(id: number): Promise<void> {
     try {
       await api.post('/moods', {
-        mood: id
+        mood: id,
       });
       void (await router.push('/getorpost'));
     } catch (e: any) {
@@ -67,7 +67,6 @@ const Home: NextPage = () => {
           <div className={styles.moodTitle}>
             <h1>How are you today? </h1>
           </div>
-          <MoodButton href="google.com" onClick={(e) => e.preventDefault()} />
           <div className={styles.moodGrid}>
             {moodEmojis.map((emoji) => {
               return (
