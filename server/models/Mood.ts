@@ -81,6 +81,19 @@ class Mood {
       return false;
     }
   }
+
+  static async getMood(): Promise<any> {
+    const result = await prisma.$queryRaw`
+    SELECT
+      date_trunc('day', "public"."Mood"."postDate") as postDate,
+      ROUND(AVG("public"."Mood"."mood"),2) as mood
+    FROM
+      "public"."Mood"
+    GROUP BY 1
+    `;
+
+    return result;
+  }
 }
 
 export default Mood;
