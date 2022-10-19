@@ -32,6 +32,7 @@ class Mood {
       where: {
         AND: [
           {
+
             userId,
           },
           {
