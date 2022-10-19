@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { api, setToken } from './hello';
+import { api, setToken } from './api';
 
 export const authContext = React.createContext(null);
 
@@ -18,6 +18,7 @@ export function useAuth(): UseAuthReturnValue {
     const mytoken = localStorage.getItem('token');
     if (mytoken) {
       setToken(mytoken);
+      console.log('setToken');
     }
   });
 
@@ -27,6 +28,6 @@ export function useAuth(): UseAuthReturnValue {
       // save in local storage?
       localStorage.setItem('token', token);
     },
-    user
+    user,
   };
 }

@@ -5,9 +5,8 @@ import HomeButton from '../components/HomeButton';
 import axios from 'axios';
 
 import React, { useState } from 'react';
-import { api } from '../lib/hello';
+import { api } from '../lib/api';
 import { useAuth } from '../lib/auth';
- 
 
 export default function post(): JSX.Element {
   useAuth();
@@ -16,7 +15,6 @@ export default function post(): JSX.Element {
     try {
       await api.post('/messages', {
         entrytext: text,
- 
       });
     } catch (e: any) {
       void Notification.setPlacement('top');
