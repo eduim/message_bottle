@@ -1,5 +1,6 @@
 import styles from '../styles/Post.module.css';
 import PostButton from '../components/PostButton';
+import { useRouter } from 'next/router';
 import { Notification } from '@contentful/f36-components';
 import HomeButton from '../components/HomeButton';
 import axios from 'axios';
@@ -30,8 +31,6 @@ export default function post(): JSX.Element {
   }
 
   const [message, setMessage] = useState<string>('');
-  // const [messageAlert, setmessageAlert] = useState<string>('')
-  // const [showModal, setShowModal]
 
   async function handleMessage(
     event: React.FormEvent<HTMLFormElement>
