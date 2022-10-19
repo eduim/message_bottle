@@ -50,6 +50,30 @@ const Home: NextPage = () => {
     }
   }, [token]);
 
+  async function postMood(id: number): Promise<void> {
+    try {
+      await api.post('/moods', {
+        mood: id,
+      });
+      void (await router.push('/getorpost'));
+    } catch (e: any) {
+      // console.log('response', Response.data);
+      // if (Response.body === 'You already posted your mood today.') {
+      //   void Notification.setPlacement('top');
+      //   void Notification.error('You already posted your mood today.');
+      // }
+      void Notification.setPlacement('top');
+
+      if (axios.isAxiosError(e)) {
+        void Notification.error(e.response?.data);
+      } else {
+        void Notification.error(
+          'Unknown error, please try again or contact and administrator.'
+        );
+      }
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -69,7 +93,6 @@ const Home: NextPage = () => {
           <div className={styles.grid}>
             {moodEmojis.map((emoji) => {
               return (
-<<<<<<< HEAD
                 <a
                   key={emoji.id}
                   href="getorpost"
@@ -78,11 +101,6 @@ const Home: NextPage = () => {
                 >
                   <p>{emoji.pic}</p>
                 </a>
-=======
-                <MoodButton key={emoji.id} onClick={() => postMood(emoji.id)}>
-                  {emoji.pic}
-                </MoodButton>
->>>>>>> c6e1f5f (fix: mood button implementation routing and post)
               );
             })}
           </div>
