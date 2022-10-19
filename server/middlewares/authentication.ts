@@ -8,8 +8,7 @@ const authMiddleware: Koa.Middleware = async function (
 ) {
   const token = ctx.headers.authorization?.split('Bearer ')[1];
   if (token === undefined) {
-    ctx.res.statusCode = 401;
-    return;
+    ctx.throw(401, 'token missing');
   }
   const secret = JWT_SECRET;
   try {

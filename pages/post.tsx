@@ -2,24 +2,34 @@ import styles from '../styles/Post.module.css';
 import PostButton from '../components/PostButton';
 import { Notification } from '@contentful/f36-components';
 import HomeButton from '../components/HomeButton';
+import axios from 'axios';
 
 import React, { useState } from 'react';
-import { api } from './api/hello';
+import { api } from '../lib/hello';
+import { useAuth } from '../lib/auth';
 
 export default function post(): JSX.Element {
+  useAuth();
+
   async function postMessage(text: string): Promise<void> {
-    await api
-      .post('/messages', {
+    try {
+      await api.post('/messages', {
         entrytext: text,
-      })
-      .then((Response) => {
-        void Notification.error(Response.data);
       });
+    } catch (e: any) {
+      void Notification.setPlacement('top');
+
+      if (axios.isAxiosError(e)) {
+        void Notification.error(e.response?.data);
+      } else {
+        void Notification.error(
+          'Unknown error, please try again or contact and administrator.'
+        );
+      }
+    }
   }
 
   const [message, setMessage] = useState<string>('');
-  // const [messageAlert, setmessageAlert] = useState<string>('')
-  // const [showModal, setShowModal]
 
   async function handleMessage(
     event: React.FormEvent<HTMLFormElement>

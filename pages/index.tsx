@@ -5,9 +5,9 @@ import { useEffect } from 'react';
 import MoodButton from '../components/MoodButton';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
-import { api, APIRequestError } from '../lib/hello';
-import { contextOptions, Notification } from '@contentful/f36-components';
-import axios, { AxiosError } from 'axios';
+import { api } from '../lib/hello';
+import { Notification } from '@contentful/f36-components';
+import axios from 'axios';
 
 const moodEmojis = [
   { id: 1, pic: '😎' },

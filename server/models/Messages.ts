@@ -1,4 +1,3 @@
-import { networkInterfaces } from 'os';
 import prisma from '../lib/prisma';
 
 class Messages {
@@ -33,6 +32,7 @@ class Messages {
   static async checkTodayMessage(userId: number): Promise<boolean> {
     const day = Date.now() - 24 * 60 * 60 * 1000;
     const lastDay = new Date(day).toISOString();
+
     try {
       const lastMessage = await prisma.message.findMany({
         where: {
@@ -58,6 +58,23 @@ class Messages {
       return lastMessage[0].postDate.getDate() === currentDay;
     } catch {
       return false;
+    }
+  }
+
+  static async getMessages(): Promise<any | null> {
+    const date = new Date();
+    const lastWeek = new Date(date.setDate(date.getDate() - 7)).toISOString();
+    try {
+      const messagesLastWeek = await prisma.message.findMany({
+        where: {
+          postDate: {
+            gte: lastWeek,
+          },
+        },
+      });
+      return messagesLastWeek;
+    } catch {
+      return null;
     }
   }
 }
