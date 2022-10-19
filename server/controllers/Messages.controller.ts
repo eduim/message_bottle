@@ -43,7 +43,7 @@ const MessagesController = {
       ctx.response.status = 400;
       ctx.response.body = 'Already posted message today';
     } else {
-      const message = await Messages.create(text, userId, currentMood[0].id);
+      const message = await Messages.create(text, userId, currentMood?.mood);
       ctx.response.body = message;
       ctx.response.status = 201;
     }
