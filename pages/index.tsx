@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import MoodButton from '../components/MoodButton';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
+import { api } from '../lib/api';
+import { Notification } from '@contentful/f36-components';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
@@ -13,12 +15,6 @@ export const api = axios.create({
 });
 
 const moodEmojis = [
-  { id: 1, pic: '😊' },
-  { id: 2, pic: '😄 ' },
-  { id: 3, pic: '😊' },
-  { id: 4, pic: '🥶' },
-  { id: 5, pic: '😮' },
-];
 
 async function postMood(id: number): Promise<void> {
   await api.post('/moods', {
@@ -84,8 +80,7 @@ const Home: NextPage = () => {
           <div className={styles.moodTitle}>
             <h1>How are you today? </h1>
           </div>
-
-          <div className={styles.grid}>
+          <div className={styles.moodGrid}>
             {moodEmojis.map((emoji) => {
               return (
                 <a

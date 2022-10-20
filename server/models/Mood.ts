@@ -1,5 +1,9 @@
 import prisma from '../lib/prisma';
+<<<<<<< HEAD
 import User from './users';
+=======
+import User from './Users';
+>>>>>>> d914a1f0c217dcc2caf3cba0687de2c65fb451f5
 
 class Mood {
   constructor(
