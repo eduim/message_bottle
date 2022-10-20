@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import MessagesController from './controllers/Messages.controller';
-import MoodsController from './controllers/moods.controller';
+import MoodsController from './controllers/Moods.controller';
 import UsersController from './controllers/Users.controller';
 import authMiddleware from './middlewares/authentication';
 

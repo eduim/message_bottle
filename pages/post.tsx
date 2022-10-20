@@ -35,7 +35,10 @@ export default function post(): JSX.Element {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event?.preventDefault();
-    await postMessage(message);
+    const response = await postMessage(message);
+    setTimeout(() => {
+      console.log(response);
+    }, 3000);
     setMessage('');
   }
 

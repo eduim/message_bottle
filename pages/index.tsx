@@ -11,11 +11,13 @@ import axios from 'axios';
 import HomeButton from '../components/HomeButton';
 
 const moodEmojis = [
+
   { id: 1, pic: '😭' },
   { id: 2, pic: '😤' },
   { id: 3, pic: '😮‍💨' },
   { id: 4, pic: '😄' },
   { id: 5, pic: '😎' },
+
 ];
 
 const Home: NextPage = () => {

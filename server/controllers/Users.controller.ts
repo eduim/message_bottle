@@ -2,7 +2,7 @@ import Koa from 'koa';
 import { JWT_SECRET } from '../lib/constants';
 import { getGitHubData, getGithubToken, redirectUrl } from '../lib/github';
 import jwt from 'jsonwebtoken';
-import User from '../models/users';
+import User from '../models/Users';
 
 const UsersController = {
   requestAuthorization: async (
