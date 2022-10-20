@@ -17,11 +17,9 @@ class Messages {
     const { id, postDate } = await prisma.message.create({
       data: {
         entrytext,
+        mood,
         user: {
           connect: { id: userId },
-        },
-        mood: {
-          connect: { id: mood },
         },
       },
     });
