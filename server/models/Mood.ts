@@ -16,9 +16,9 @@ class Mood {
 
         /// to add user info to the postmood
         user: {
-          connect: { id: userId }
-        }
-      }
+          connect: { id: userId },
+        },
+      },
     });
 
     return new Mood(id, mood, postDate);
@@ -32,21 +32,19 @@ class Mood {
       where: {
         AND: [
           {
- 
             userId,
- 
           },
           {
             postDate: {
-              gte: lastDay
-            }
-          }
-        ]
+              gte: lastDay,
+            },
+          },
+        ],
       },
       orderBy: {
-        postDate: 'desc'
+        postDate: 'desc',
       },
-      take: 1
+      take: 1,
     });
 
     return lastMood;
@@ -60,19 +58,19 @@ class Mood {
         where: {
           AND: [
             {
-              userId
+              userId,
             },
             {
               postDate: {
-                gte: lastDay
-              }
-            }
-          ]
+                gte: lastDay,
+              },
+            },
+          ],
         },
         orderBy: {
-          postDate: 'desc'
+          postDate: 'desc',
         },
-        take: 1
+        take: 1,
       });
 
       const currentDay = new Date(Date.now()).getDate();
@@ -86,7 +84,7 @@ class Mood {
     const result = await prisma.$queryRaw`
     SELECT
       date_trunc('day', "public"."Mood"."postDate") as postDate,
-      ROUND(AVG("public"."Mood"."mood"),2) as mood
+      ROUND(AVG("public"."Mood"."mood"),2) as av_mood
     FROM
       "public"."Mood"
     GROUP BY 1

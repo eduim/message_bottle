@@ -11,11 +11,11 @@ import axios from 'axios';
 import HomeButton from '../components/HomeButton';
 
 const moodEmojis = [
-  { id: 1, pic: '😎' },
-  { id: 2, pic: '😞' },
-  { id: 3, pic: '🤓' },
+  { id: 1, pic: '😭' },
+  { id: 2, pic: '😤' },
+  { id: 3, pic: '😮‍💨' },
   { id: 4, pic: '😄' },
-  { id: 5, pic: '😤' },
+  { id: 5, pic: '😎' },
 ];
 
 const Home: NextPage = () => {
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
         mood: id,
       });
       void (await router.push('/getorpost'));
-    } catch (e: any) {
+    } catch (e) {
       void Notification.setPlacement('top');
 
       if (axios.isAxiosError(e)) {

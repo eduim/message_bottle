@@ -6,13 +6,12 @@ const authMiddleware: Koa.Middleware = async function (
   ctx: Koa.Context,
   next: Koa.Next
 ) {
- 
   const token = ctx.headers.authorization?.split('Bearer ')[1];
   if (token === undefined) {
     ctx.throw(401, 'token missing');
   }
   const secret = JWT_SECRET;
- 
+
   try {
     const token = ctx.headers.authorization?.split('Bearer ')[1];
     if (token === undefined) {
