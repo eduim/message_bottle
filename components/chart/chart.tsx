@@ -12,6 +12,7 @@ import {
   LineElement,
 } from 'chart.js';
 import { useAuth } from '../../lib/auth';
+import styles from './chart.module.css';
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -25,31 +26,36 @@ const ChartMoods = () => {
     labels: [],
     datasets: [],
   });
-  const [userMood, setUserMood] = useState([]);
-  const [averageMood, setAverageMood] = useState([]);
   useAuth();
 
-  const chart = () => {
+  const Chart = () => {
     const uMood: number[] = [];
     const aMood: number[] = [];
+    const date: number[] = [];
+
     api
       .get('/moods')
       .then((response) => {
-        console.log(response.data);
-        for (const dataObj of response.data.data) {
-          uMood.push(dataObj.user_mood);
-          aMood.push(dataObj.average_mood);
+        console.log('res', response);
+        for (const dataObj of response.data) {
+          aMood.push(dataObj.av_mood);
+          date.push(dataObj.postdate);
+          console.log('wtf', dataObj);
         }
+        //   let newDate= date.map((oneDay, i)=>{
+        //   oneDay
+        // })
         setChartData({
-          labels: aMood,
+          labels: date,
           datasets: [
             {
-              label: 'mood range',
-              data: uMood,
-              backgroundColor: ['rgba(75, 192, 192, 0.6)'],
+              label: 'mood graph',
+              data: aMood,
+              backgroundColor: 'transparent',
+              borderColor: 'rgb(255,255,255)',
               borderWidth: 4,
-              fill: true,
-              tension: 0.5,
+              fill: false,
+              tension: 0.3,
             },
           ],
         });
@@ -57,27 +63,16 @@ const ChartMoods = () => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(uMood, aMood);
+    // console.log(uMood, aMood);
   };
 
   useEffect(() => {
-    api
-      .get('/moods')
-      .then((result) => {
-        console.log(result.data);
-        setUserMood(result.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Chart();
   }, []);
 
   return (
-    <div>
-      <h1>Chart</h1>
-      <div>
-        <Line data={chartData} />
-      </div>
+    <div className={styles.chart}>
+      <Line data={chartData} />
     </div>
   );
 };

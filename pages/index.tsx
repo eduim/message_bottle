@@ -56,7 +56,7 @@ const Home: NextPage = () => {
         mood: id,
       });
       void (await router.push('/getorpost'));
-    } catch (e: any) {
+    } catch (e) {
       void Notification.setPlacement('top');
 
       if (axios.isAxiosError(e)) {

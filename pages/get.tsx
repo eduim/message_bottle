@@ -56,9 +56,7 @@ export default function get(): JSX.Element {
   return (
     <div className={styles.container}>
       <div className={styles.main}>
-        <div className={styles.graph}>
-          <ChartMood />
-        </div>
+        <ChartMood />
         <h1 className={styles.title}>Here u are!</h1>
         {showMessage ? <GetMessage /> : button}
       </div>
