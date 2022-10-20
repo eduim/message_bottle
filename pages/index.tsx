@@ -8,19 +8,34 @@ import styles from '../styles/Home.module.css';
 import { api } from '../lib/api';
 import { Notification } from '@contentful/f36-components';
 import axios from 'axios';
-import HomeButton from '../components/HomeButton';
+import { useRouter } from 'next/router';
+
+export const api = axios.create({
+  baseURL: 'http://localhost:3000',
+});
 
 const moodEmojis = [
 
-  { id: 1, pic: '😭' },
-  { id: 2, pic: '😤' },
-  { id: 3, pic: '😮‍💨' },
-  { id: 4, pic: '😄' },
-  { id: 5, pic: '😎' },
-
-];
+async function postMood(id: number): Promise<void> {
+  await api.post('/moods', {
+    mood: id,
+  });
+}
 
 const Home: NextPage = () => {
+  async function postMood(id: number): Promise<void> {
+    try {
+      await api.post('/moods', {
+        mood: id,
+      });
+      void (await router.push('/getorpost'));
+    } catch (e) {
+      void Notification.setPlacement('top');
+      void Notification.error(
+        "You'are not logged in. Please click the logo below to log in."
+      );
+    }
+  }
   const router = useRouter();
   const { token } = router.query;
 
@@ -68,9 +83,14 @@ const Home: NextPage = () => {
           <div className={styles.moodGrid}>
             {moodEmojis.map((emoji) => {
               return (
-                <MoodButton key={emoji.id} onClick={() => postMood(emoji.id)}>
-                  {emoji.pic}
-                </MoodButton>
+                <a
+                  key={emoji.id}
+                  href="getorpost"
+                  className={styles.card}
+                  onClick={async () => await postMood(emoji.id)}
+                >
+                  <p>{emoji.pic}</p>
+                </a>
               );
             })}
           </div>

@@ -6,7 +6,6 @@ import axios from 'axios';
 
 import React, { useState } from 'react';
 import { api } from '../lib/api';
-import { useAuth } from '../lib/auth';
 
 export default function post(): JSX.Element {
   useAuth();
@@ -35,10 +34,7 @@ export default function post(): JSX.Element {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event?.preventDefault();
-    const response = await postMessage(message);
-    setTimeout(() => {
-      console.log(response);
-    }, 3000);
+    await postMessage(message);
     setMessage('');
   }
 
