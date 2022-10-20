@@ -24,8 +24,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(212, 212, 212);
-  box-shadow: 10px 7px 20px rgba(22, 12, 60, 0.2);
  }
 .title{
   padding-top: 1%;

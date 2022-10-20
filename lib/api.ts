@@ -6,6 +6,7 @@ interface Data {
   name: string;
 }
 
+
 function handler(req: NextApiRequest, res: NextApiResponse<Data>): void {
   res.status(200).json({ name: 'John Doe' });
 }
