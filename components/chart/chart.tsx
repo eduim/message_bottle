@@ -1,18 +1,21 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import { api } from '../../pages';
+
+import { api } from '../../lib/api';
 import {
   Chart,
   ChartData,
   ChartOptions,
-  // ChartDataset,
-  // ChartType,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
 } from 'chart.js';
+import { useAuth } from '../../lib/auth';
+import styles from './chart.module.css';
+
+
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
 interface LineProps {
@@ -25,46 +28,36 @@ const ChartMoods = () => {
     labels: [],
     datasets: [],
   });
-  const [userMood, setUserMood] = useState([]);
-  const [averageMood, setAverageMood] = useState([]);
+  useAuth();
 
-  const chart = () => {
+  const Chart = () => {
     const uMood: number[] = [];
     const aMood: number[] = [];
+    const date: number[] = [];
+
     api
       .get('/moods')
-      .then((res) => {
-        console.log(res);
-
-        /* TO CHANGE TO API */
-        // const res = {
-        //   data: {
-        //     data: [
-        //       {
-        //         user_mood: 5,
-        //         average_mood: 2,
-        //       },
-        //       {
-        //         user_mood: 1,
-        //         average_mood: 5,
-        //       },
-        //     ],
-        //   },
-        // };
-        // for (const dataObj of res.data.data) {
-        //   uMood.push(dataObj.user_mood);
-        //   aMood.push(dataObj.average_mood);
-        // }
+      .then((response) => {
+        console.log('res', response);
+        for (const dataObj of response.data) {
+          aMood.push(dataObj.av_mood);
+          date.push(dataObj.postdate);
+          console.log('wtf', dataObj);
+        }
+        //   let newDate= date.map((oneDay, i)=>{
+        //   oneDay
+        // })
         setChartData({
-          labels: aMood,
+          labels: date,
           datasets: [
             {
-              label: 'level of thiccness',
-              data: uMood,
-              backgroundColor: ['rgba(75, 192, 192, 0.6)'],
+              label: 'mood graph',
+              data: aMood,
+              backgroundColor: 'transparent',
+              borderColor: 'rgb(255,255,255)',
               borderWidth: 4,
-              fill: true,
-              tension: 0.5,
+              fill: false,
+              tension: 0.3,
             },
           ],
         });
@@ -72,26 +65,18 @@ const ChartMoods = () => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(uMood, aMood);
+
+    // console.log(uMood, aMood);
   };
 
   useEffect(() => {
-    api
-      .get('/moods')
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Chart();
   }, []);
 
   return (
-    <div>
-      <h1>Chart</h1>
-      <div>
-        <Line data={chartData} />
-      </div>
+    <div className={styles.chart}>
+      <Line data={chartData} />
+
     </div>
   );
 };

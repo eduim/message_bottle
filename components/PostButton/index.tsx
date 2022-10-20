@@ -7,8 +7,8 @@ interface PostButtonProps {
 
 export default function PostButton({ children }: PostButtonProps): JSX.Element {
   return (
-    <a className={styles.card}>
+    <button className={styles.card}>
       <p>{children}</p>
-    </a>
+    </button>
   );
 }

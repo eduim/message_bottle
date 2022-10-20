@@ -2,7 +2,7 @@ import Koa from 'koa';
 import { JWT_SECRET } from '../lib/constants';
 import { getGitHubData, getGithubToken, redirectUrl } from '../lib/github';
 import jwt from 'jsonwebtoken';
-import User from '../models/users';
+import User from '../models/Users';
 
 const UsersController = {
   requestAuthorization: async (
@@ -45,10 +45,10 @@ const UsersController = {
 
     const userDB = await User.login(githubId, accessToken, user, expiresIn);
     console.log(userDB, jwtToken);
-    ctx.response.body = {
-      token: jwtToken,
-    };
-    ctx.redirect('http://localhost:3000');
+    // ctx.response.body = {
+    //   token: jwtToken
+    // };
+    ctx.redirect(`http://localhost:3000?token=${jwtToken}`);
   },
 
   authentication: async (ctx: Koa.Context): Promise<void> => {

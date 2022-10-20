@@ -35,7 +35,6 @@ const MoodsController = {
     ctx.statusCode = 200;
     ctx.response.body = record;
   },
-
 };
 
 export default MoodsController;
