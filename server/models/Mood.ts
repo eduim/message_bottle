@@ -60,7 +60,7 @@ class Mood {
     const result = await prisma.$queryRaw`
     SELECT
       date_trunc('day', "public"."Mood"."postDate") as postDate,
-      ROUND(AVG("public"."Mood"."mood"),2) as mood
+      ROUND(AVG("public"."Mood"."mood"),2) as av_mood
     FROM
       "public"."Mood"
     GROUP BY 1

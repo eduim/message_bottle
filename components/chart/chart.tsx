@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
+
 import { api } from '../../lib/api';
 import {
   Chart,
@@ -13,6 +14,7 @@ import {
 } from 'chart.js';
 import { useAuth } from '../../lib/auth';
 import styles from './chart.module.css';
+
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -63,6 +65,7 @@ const ChartMoods = () => {
       .catch((err) => {
         console.log(err);
       });
+
     // console.log(uMood, aMood);
   };
 
@@ -73,6 +76,7 @@ const ChartMoods = () => {
   return (
     <div className={styles.chart}>
       <Line data={chartData} />
+
     </div>
   );
 };
